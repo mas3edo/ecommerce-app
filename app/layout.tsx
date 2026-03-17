@@ -3,8 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import RouteGuard from "./components/RouteGuard";
 import RouteChangeLoader from "./components/RouteChangeLoader";
-import Navbar from "./components/Navbar/Navbar";
-import Footer from "./components/footer/Footer";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,9 +32,9 @@ export default function RootLayout({
       >
         <RouteChangeLoader />
         <RouteGuard>
-          <Navbar />
+
           {children}
-          <Footer />
+
         </RouteGuard>
       </body>
     </html>
