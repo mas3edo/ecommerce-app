@@ -1,3 +1,4 @@
+
 import { ArrowRight, Laptop, Smartphone, Headphones, Gamepad2, Blocks } from "lucide-react";
 import Link from "next/link";
 import { fetchCategories } from "../../lib/data";
@@ -50,8 +51,10 @@ export default async function Category() {
                     const Icon = category.icon;
                     return (
                         <Link
+
                             key={category.id}
                             href={category.href}
+
                             className="bg-[#F8FAFC] rounded-2xl p-6 flex flex-col items-start transition-all duration-300 hover:bg-[#f97316] hover:shadow-[0_8px_24px_rgba(0,0,0,0.04)] hover:-translate-y-1 group border border-transparent hover:border-gray-200"
                         >
                             <div className="bg-white w-14 h-14 rounded-xl flex items-center justify-center shadow-sm mb-16 text-[#f97316] group-hover:scale-110 transition-transform duration-300">

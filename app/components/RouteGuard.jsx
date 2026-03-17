@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { supabase } from "../lib/data";
+import LoadingAnimation from "./LoadingAnimation";
 
 export default function RouteGuard({ children }) {
     const router = useRouter();
@@ -48,19 +49,7 @@ export default function RouteGuard({ children }) {
     }, [router, pathname]);
 
     if (checking) {
-        return (
-            <div style={{
-                minHeight: "100vh",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontFamily: "sans-serif",
-                color: "#9ca3af",
-                fontSize: "14px"
-            }}>
-                Loading...
-            </div>
-        );
+        return <LoadingAnimation />;
     }
 
     return <>{children}</>;
