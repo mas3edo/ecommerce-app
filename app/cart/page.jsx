@@ -84,7 +84,7 @@ export default function CartPage() {
                                                 {/* Quantity Selector */}
                                                 <div className="flex items-center border border-gray-200 rounded-lg p-1 bg-gray-50">
                                                     <button 
-                                                        onClick={() => updateQuantity(item.id, Math.max(1, (item.quantity || 1) - 1))}
+                                                        onClick={(e) => { e.preventDefault(); updateQuantity(item.id, Math.max(1, (item.quantity || 1) - 1)); }}
                                                         className="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-900 hover:bg-white rounded-md transition-colors"
                                                     >
                                                         <Minus size={14} strokeWidth={2.5} />
@@ -93,7 +93,7 @@ export default function CartPage() {
                                                         {item.quantity || 1}
                                                     </span>
                                                     <button 
-                                                        onClick={() => updateQuantity(item.id, (item.quantity || 1) + 1)}
+                                                        onClick={(e) => { e.preventDefault(); updateQuantity(item.id, (item.quantity || 1) + 1); }}
                                                         className="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-900 hover:bg-white rounded-md transition-colors"
                                                     >
                                                         <Plus size={14} strokeWidth={2.5} />
@@ -101,7 +101,7 @@ export default function CartPage() {
                                                 </div>
 
                                                 <button 
-                                                    onClick={() => removeFromCart(item.id)}
+                                                    onClick={(e) => { e.preventDefault(); removeFromCart(item.id); }}
                                                     className="w-10 h-10 flex items-center justify-center text-gray-400 bg-gray-50 rounded-lg hover:text-red-500 hover:bg-red-50 transition-colors group"
                                                 >
                                                     <Trash2 size={18} className="group-hover:scale-110 transition-transform" />

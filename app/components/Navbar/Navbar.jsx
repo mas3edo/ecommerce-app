@@ -121,9 +121,9 @@ export default function Navbar() {
                         )}
                     </div>
 
-                    <Link href="/deals" className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-700 rounded-lg transition-colors duration-150 hover:bg-orange-50 hover:text-orange-500">Deals</Link>
+                    <Link href="/Home/deals" className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-700 rounded-lg transition-colors duration-150 hover:bg-orange-50 hover:text-orange-500">Deals</Link>
                     <Link href="/new-arrivals" className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-700 rounded-lg transition-colors duration-150 hover:bg-orange-50 hover:text-orange-500">New Arrivals</Link>
-                    <Link href="/support" className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-700 rounded-lg transition-colors duration-150 hover:bg-orange-50 hover:text-orange-500">Support</Link>
+                    <Link href="/Home/support" className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-700 rounded-lg transition-colors duration-150 hover:bg-orange-50 hover:text-orange-500">Support</Link>
                 </div>
 
                 {/* Search Bar (Desktop) */}
@@ -276,9 +276,9 @@ export default function Navbar() {
                         )}
                     </div>
                     
-                    <Link href="/deals" className="block px-3 py-2.5 text-[15px] font-medium text-slate-900 rounded-lg transition-colors hover:bg-orange-50 hover:text-orange-500" onClick={() => setMobileOpen(false)}>Deals</Link>
+                    <Link href="/Home/deals" className="block px-3 py-2.5 text-[15px] font-medium text-slate-900 rounded-lg transition-colors hover:bg-orange-50 hover:text-orange-500" onClick={() => setMobileOpen(false)}>Deals</Link>
                     <Link href="/new-arrivals" className="block px-3 py-2.5 text-[15px] font-medium text-slate-900 rounded-lg transition-colors hover:bg-orange-50 hover:text-orange-500" onClick={() => setMobileOpen(false)}>New Arrivals</Link>
-                    <Link href="/support" className="block px-3 py-2.5 text-[15px] font-medium text-slate-900 rounded-lg transition-colors hover:bg-orange-50 hover:text-orange-500" onClick={() => setMobileOpen(false)}>Support</Link>
+                    <Link href="/Home/support" className="block px-3 py-2.5 text-[15px] font-medium text-slate-900 rounded-lg transition-colors hover:bg-orange-50 hover:text-orange-500" onClick={() => setMobileOpen(false)}>Support</Link>
                     <div className="h-px bg-gray-200 my-2" />
                     {categories.map((cat) => (
                         <Link key={cat} href={`/Home/category/${cat.toLowerCase()}`} className="block px-3 pl-5 py-2.5 text-[14px] font-normal text-gray-500 rounded-lg transition-colors hover:bg-orange-50 hover:text-orange-500" onClick={() => setMobileOpen(false)}>

@@ -30,7 +30,8 @@ export default function FilterSidebar({
             <div className="flex items-center justify-between mb-8">
                 <h3 className="text-xl font-bold text-[#0F172A]">Filters</h3>
                 <button 
-                    onClick={() => {
+                    onClick={(e) => {
+                        e.preventDefault();
                         setSelectedBrands([]);
                         setPriceRange(maxPossiblePrice);
                         setSelectedRam(null);
@@ -101,7 +102,7 @@ export default function FilterSidebar({
                         {availableRams.map((ram) => (
                             <button 
                                 key={ram}
-                                onClick={() => setSelectedRam(prev => prev === ram ? null : ram)}
+                                onClick={(e) => { e.preventDefault(); setSelectedRam(prev => prev === ram ? null : ram); }}
                                 className={`px-4 py-2 text-sm font-semibold rounded-lg border transition-all ${
                                     selectedRam === ram 
                                     ? 'border-[#ea580c] text-[#ea580c] bg-orange-50' 
@@ -144,7 +145,7 @@ export default function FilterSidebar({
             <div className="mb-8">
                 <h4 className="text-xs font-bold text-[#94a3b8] tracking-widest uppercase mb-4">Customer Ratings</h4>
                 <div className="flex flex-col gap-3">
-                    <button onClick={() => setMinRating(prev => prev === 4 ? 0 : 4)} className={`flex items-center gap-2 group cursor-pointer bg-transparent border-none p-0 ${minRating === 4 ? 'opacity-100' : 'opacity-60 hover:opacity-100'}`}>
+                    <button onClick={(e) => { e.preventDefault(); setMinRating(prev => prev === 4 ? 0 : 4); }} className={`flex items-center gap-2 group cursor-pointer bg-transparent border-none p-0 ${minRating === 4 ? 'opacity-100' : 'opacity-60 hover:opacity-100'}`}>
                         <div className="flex gap-1 text-[#facc15]">
                             {[...Array(5)].map((_, i) => (
                                 <Star key={i} size={16} fill={i < 4 ? "currentColor" : "none"} className={i < 4 ? "" : "text-gray-300"} />
@@ -152,7 +153,7 @@ export default function FilterSidebar({
                         </div>
                         <span className="text-sm text-[#475569] font-medium group-hover:text-[#0F172A] transition-colors ml-1">& Up</span>
                     </button>
-                    <button onClick={() => setMinRating(prev => prev === 3 ? 0 : 3)} className={`flex items-center gap-2 group cursor-pointer bg-transparent border-none p-0 ${minRating === 3 ? 'opacity-100' : 'opacity-60 hover:opacity-100'}`}>
+                    <button onClick={(e) => { e.preventDefault(); setMinRating(prev => prev === 3 ? 0 : 3); }} className={`flex items-center gap-2 group cursor-pointer bg-transparent border-none p-0 ${minRating === 3 ? 'opacity-100' : 'opacity-60 hover:opacity-100'}`}>
                         <div className="flex gap-1 text-[#facc15]">
                             {[...Array(5)].map((_, i) => (
                                 <Star key={i} size={16} fill={i < 3 ? "currentColor" : "none"} className={i < 3 ? "" : "text-gray-300"} />

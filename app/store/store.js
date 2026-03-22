@@ -1,6 +1,8 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
+import { toast } from 'react-toastify';
+
 export const useStore = create(
     persist(
         (set) => ({
@@ -10,6 +12,10 @@ export const useStore = create(
             // --- Cart Actions ---
             addToCart: (product) => set((state) => {
                 const existingProduct = state.cart.find((item) => item.id === product.id);
+                toast.success(`${product.title} added to cart!`, {
+                    icon: '🛒',
+                    progressStyle: { background: '#22c55e' }
+                });
                 if (existingProduct) {
                     return {
                         cart: state.cart.map((item) =>
@@ -33,8 +39,13 @@ export const useStore = create(
             toggleFavorite: (product) => set((state) => {
                 const isFavorite = state.favorites.some((item) => item.id === product.id);
                 if (isFavorite) {
+                    toast.info(`${product.title} removed from favorites`);
                     return { favorites: state.favorites.filter((item) => item.id !== product.id) };
                 }
+                toast.success(`${product.title} added to favorites!`, {
+                    icon: '❤️',
+                    progressStyle: { background: '#22c55e' }
+                });
                 return { favorites: [...state.favorites, product] };
             }),
             clearFavorites: () => set({ favorites: [] }),

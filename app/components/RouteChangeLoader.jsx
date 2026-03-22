@@ -13,7 +13,7 @@ export default function RouteChangeLoader() {
         if (isLoading) {
             const timer = setTimeout(() => {
                 setIsLoading(false);
-            }, 3000); // 3 seconds delay
+            }, 800); // 0.8 seconds delay
             return () => clearTimeout(timer);
         }
     }, [pathname, isLoading]);
@@ -25,6 +25,7 @@ export default function RouteChangeLoader() {
         // Next.js App Router doesn't expose native router events yet,
         // so we intercept clicks on anchors linking to internal routes.
         const handleClick = (e) => {
+            if (e.defaultPrevented) return;
             const path = e.composedPath();
             const anchor = path.find(el => el.tagName === "A");
             

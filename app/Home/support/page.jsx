@@ -4,24 +4,7 @@ import { ArrowLeft, Zap, Phone, Mail, MessageSquare, MapPin, Clock, FileText } f
 
 export default function SupportPage() {
     return (
-        <div className="min-h-screen bg-gray-50 flex flex-col font-['public-sans',sans-serif]">
-            {/* Minimal Header */}
-            <header className="bg-white border-b border-gray-200 py-4 px-6 md:px-12 sticky top-0 z-50">
-                <div className="max-w-7xl mx-auto flex items-center justify-between">
-                    <Link href="/Home" className="flex items-center gap-2 shrink-0 no-underline">
-                        <div className="w-9 h-9 bg-gradient-to-br from-orange-500 to-orange-600 rounded-lg flex items-center justify-center text-white shadow-sm">
-                            <Zap size={20} strokeWidth={2.5} />
-                        </div>
-                        <span className="text-lg font-bold text-gray-900 tracking-[-0.5px]">
-                            TECH<span className="text-orange-500">FLOW</span>
-                        </span>
-                    </Link>
-                    <Link href="/Home" className="text-sm font-semibold text-gray-500 hover:text-orange-500 flex items-center gap-1.5 transition-colors">
-                        <ArrowLeft size={16} /> Back to Shop
-                    </Link>
-                </div>
-            </header>
-
+        <div className="min-h-[70vh] bg-gray-50 flex flex-col font-['public-sans',sans-serif]">
             <main className="flex-1 w-full">
                 {/* Hero Section */}
                 <div className="bg-[#0F172A] py-20 px-6 relative overflow-hidden">
