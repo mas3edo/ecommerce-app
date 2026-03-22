@@ -1,7 +1,7 @@
 
 import { ArrowRight, Laptop, Smartphone, Headphones, Gamepad2, Blocks } from "lucide-react";
 import Link from "next/link";
-import { fetchCategories } from "../../lib/data";
+import { fetchCategories } from "../../../lib/data";
 
 // Helper to map category names to Lucide icons
 const getCategoryIcon = (title) => {
@@ -22,7 +22,7 @@ export default async function Category() {
         id: cat.id,
         title: cat.name || cat.title || "Unnamed Category",
         description: cat.description || "Explore this category",
-        href: `/Home/category/${(cat.name || cat.title || "other").toLowerCase().replace(/\s+/g, '-')}`,
+        href: `/Home/${(cat.name || cat.title || "other").toLowerCase().replace(/\s+/g, '-')}`,
         icon: getCategoryIcon(cat.name || cat.title || "")
     }));
 

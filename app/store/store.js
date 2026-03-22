@@ -1,0 +1,46 @@
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
+
+export const useStore = create(
+    persist(
+        (set) => ({
+            cart: [],
+            favorites: [],
+
+            // --- Cart Actions ---
+            addToCart: (product) => set((state) => {
+                const existingProduct = state.cart.find((item) => item.id === product.id);
+                if (existingProduct) {
+                    return {
+                        cart: state.cart.map((item) =>
+                            item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item
+                        ),
+                    };
+                }
+                return { cart: [...state.cart, { ...product, quantity: 1 }] };
+            }),
+            removeFromCart: (productId) => set((state) => ({
+                cart: state.cart.filter((item) => item.id !== productId),
+            })),
+            updateQuantity: (productId, quantity) => set((state) => ({
+                cart: state.cart.map((item) =>
+                    item.id === productId ? { ...item, quantity } : item
+                ),
+            })),
+            clearCart: () => set({ cart: [] }),
+
+            // --- Favorites Actions ---
+            toggleFavorite: (product) => set((state) => {
+                const isFavorite = state.favorites.some((item) => item.id === product.id);
+                if (isFavorite) {
+                    return { favorites: state.favorites.filter((item) => item.id !== product.id) };
+                }
+                return { favorites: [...state.favorites, product] };
+            }),
+            clearFavorites: () => set({ favorites: [] }),
+        }),
+        {
+            name: 'techflow-storage', // name of the item in the local storage
+        }
+    )
+);

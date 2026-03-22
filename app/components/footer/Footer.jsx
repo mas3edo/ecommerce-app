@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function Footer() {
     return (
         <footer className="bg-[#F8F9FA] pt-16 pb-8 border-t border-gray-200">
@@ -49,7 +51,7 @@ export default function Footer() {
                     <div>
                         <h3 className="text-[#111827] font-bold mb-6">Company</h3>
                         <ul className="space-y-4">
-                            <li><a href="#" className="text-[#6B7280] hover:text-[#111827] text-sm transition-colors">About Us</a></li>
+                            <li><Link href="/about" className="text-[#6B7280] hover:text-[#111827] text-sm transition-colors">About Us</Link></li>
                             <li><a href="#" className="text-[#6B7280] hover:text-[#111827] text-sm transition-colors">Careers</a></li>
                             <li><a href="#" className="text-[#6B7280] hover:text-[#111827] text-sm transition-colors">Sustainability</a></li>
                             <li><a href="#" className="text-[#6B7280] hover:text-[#111827] text-sm transition-colors">Press</a></li>
@@ -69,14 +71,34 @@ export default function Footer() {
                 </div>
 
                 {/* Bottom Bar */}
-                <div className="pt-8 border-t border-gray-200 flex flex-col md:flex-row justify-between flex-wrap gap-4 items-center">
+                <div className="pt-8 border-t border-gray-200 flex flex-col md:flex-row justify-between flex-wrap gap-6 items-center">
                     <p className="text-[#9CA3AF] text-sm">
                         &copy; {new Date().getFullYear()} TechFlow Electronics. All rights reserved.
                     </p>
+                    
+                    {/* Payment Gateways (Visual Only) */}
+                    <div className="flex items-center gap-2 flex-wrap justify-center">
+                        <div className="h-8 px-3 bg-white border border-gray-200 rounded flex items-center justify-center shadow-sm">
+                            <span className="text-[15px] font-bold text-[#1434CB] italic tracking-tighter">VISA</span>
+                        </div>
+                        <div className="h-8 px-3 bg-white border border-gray-200 rounded flex items-center justify-center shadow-sm">
+                            <span className="text-[15px] font-bold text-black tracking-tight"> Pay</span>
+                        </div>
+                        <div className="h-8 px-3 bg-white border border-gray-200 rounded flex items-center justify-center shadow-sm gap-1">
+                            <div className="w-2.5 h-2.5 rounded-full bg-[#00A54F]"></div>
+                            <span className="text-[13px] font-bold text-[#00A54F] tracking-tight">mada</span>
+                        </div>
+                        <div className="h-8 px-3 bg-[#E7FF00] border border-[#d6ec00] rounded flex items-center justify-center shadow-sm">
+                            <span className="text-[13px] font-black text-black uppercase tracking-tight">tabby</span>
+                        </div>
+                        <div className="h-8 px-3 bg-[#FFB5A6] border border-[#FFA593] rounded flex items-center justify-center shadow-sm">
+                            <span className="text-[13px] font-bold text-black tracking-tight">tamara</span>
+                        </div>
+                    </div>
+
                     <div className="flex gap-6 text-sm text-[#9CA3AF]">
                         <a href="#" className="hover:text-gray-700 transition-colors">Privacy Policy</a>
                         <a href="#" className="hover:text-gray-700 transition-colors">Terms of Service</a>
-                        <a href="#" className="hover:text-gray-700 transition-colors">Cookie Settings</a>
                     </div>
                 </div>
             </div>
