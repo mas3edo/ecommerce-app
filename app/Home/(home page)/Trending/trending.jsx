@@ -1,3 +1,4 @@
+
 import { fetchProducts } from "../../../lib/data";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import TrendingGrid from "./TrendingGrid";
@@ -7,7 +8,7 @@ export default async function Trending() {
     const dbProducts = await fetchProducts();
 
     // Map DB data or use fallbacks if data is missing
-    const products = (dbProducts && dbProducts.length > 0) ? dbProducts.slice(0, 4) : [
+    const products = (dbProducts && dbProducts.length > 0) ? dbProducts.slice(0, 6) : [
         {
             id: 1,
             title: "SonicFlow Z-9 Headphones",
@@ -45,8 +46,28 @@ export default async function Trending() {
             image: "https://images.unsplash.com/photo-1595225476474-87563907a212?q=80&w=800&auto=format&fit=crop",
             rating: 4,
             reviews: 312
+        },
+        {
+            id: 5,
+            title: "VividView 4K Monitor",
+            description: "Ultra-wide color gamut for professional creators.",
+            price: 499.00,
+            image: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?q=80&w=800&auto=format&fit=crop",
+            rating: 5,
+            reviews: 156
+        },
+        {
+            id: 6,
+            title: "SwiftPoint Pro Mouse",
+            description: "Ergonomic design with zero-lag wireless connectivity.",
+            price: 89.99,
+            image: "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?q=80&w=800&auto=format&fit=crop",
+            rating: 4,
+            reviews: 842
         }
+
     ];
+
 
     // Ensure we map standard DB names if they exist
     const displayProducts = products.map(p => ({
@@ -70,15 +91,6 @@ export default async function Trending() {
                     <p className="text-[#64748B] text-base">Our most popular tech this week.</p>
                 </div>
 
-                {/* Carousel Controls */}
-                <div className="hidden md:flex gap-2">
-                    <button className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-gray-600 hover:border-gray-300 hover:bg-gray-50 transition-all">
-                        <ChevronLeft size={20} />
-                    </button>
-                    <button className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-gray-600 hover:border-gray-300 hover:bg-gray-50 transition-all">
-                        <ChevronRight size={20} />
-                    </button>
-                </div>
             </div>
 
             {/* Product Grid */}

@@ -22,6 +22,16 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
 /* Custom Utilities for the Stitch aesthetic */
 .glass-panel {
   background: var(--color-stitch-glass);
