@@ -40,10 +40,10 @@ export default function Footer() {
                     <div>
                         <h3 className="text-[#111827] font-bold mb-6">Shop</h3>
                         <ul className="space-y-4">
-                            <li><a href="#" className="text-[#6B7280] hover:text-[#111827] text-sm transition-colors">Laptops</a></li>
-                            <li><a href="#" className="text-[#6B7280] hover:text-[#111827] text-sm transition-colors">Phones</a></li>
-                            <li><a href="#" className="text-[#6B7280] hover:text-[#111827] text-sm transition-colors">Audio</a></li>
-                            <li><a href="#" className="text-[#6B7280] hover:text-[#111827] text-sm transition-colors">Accessories</a></li>
+                            <li><Link href="/Home/category/laptops" className="text-[#6B7280] hover:text-[#111827] text-sm transition-colors">Laptops</Link></li>
+                            <li><Link href="/Home/category/smartphones" className="text-[#6B7280] hover:text-[#111827] text-sm transition-colors">Phones</Link></li>
+                            <li><Link href="/Home/category/audio" className="text-[#6B7280] hover:text-[#111827] text-sm transition-colors">Audio</Link></li>
+                            <li><Link href="/Home/category/accessories" className="text-[#6B7280] hover:text-[#111827] text-sm transition-colors">Accessories</Link></li>
                         </ul>
                     </div>
 
@@ -51,10 +51,10 @@ export default function Footer() {
                     <div>
                         <h3 className="text-[#111827] font-bold mb-6">Company</h3>
                         <ul className="space-y-4">
-                            <li><Link href="/about" className="text-[#6B7280] hover:text-[#111827] text-sm transition-colors">About Us</Link></li>
-                            <li><a href="#" className="text-[#6B7280] hover:text-[#111827] text-sm transition-colors">Careers</a></li>
-                            <li><a href="#" className="text-[#6B7280] hover:text-[#111827] text-sm transition-colors">Sustainability</a></li>
-                            <li><a href="#" className="text-[#6B7280] hover:text-[#111827] text-sm transition-colors">Press</a></li>
+                            <li><Link href="/Home/about" className="text-[#6B7280] hover:text-[#111827] text-sm transition-colors">About Us</Link></li>
+                            <li><Link href="/Home/deals" className="text-[#6B7280] hover:text-[#111827] text-sm transition-colors">Careers</Link></li>
+                            <li><Link href="/Home/support" className="text-[#6B7280] hover:text-[#111827] text-sm transition-colors">Sustainability</Link></li>
+                            <li><Link href="/Home/new-arrivals" className="text-[#6B7280] hover:text-[#111827] text-sm transition-colors">Press</Link></li>
                         </ul>
                     </div>
 
@@ -62,10 +62,10 @@ export default function Footer() {
                     <div>
                         <h3 className="text-[#111827] font-bold mb-6">Customer Care</h3>
                         <ul className="space-y-4">
-                            <li><a href="#" className="text-[#6B7280] hover:text-[#111827] text-sm transition-colors">Help Center</a></li>
-                            <li><a href="#" className="text-[#6B7280] hover:text-[#111827] text-sm transition-colors">Shipping</a></li>
-                            <li><a href="#" className="text-[#6B7280] hover:text-[#111827] text-sm transition-colors">Returns</a></li>
-                            <li><a href="#" className="text-[#6B7280] hover:text-[#111827] text-sm transition-colors">Contact Us</a></li>
+                            <li><Link href="/Home/support" className="text-[#6B7280] hover:text-[#111827] text-sm transition-colors">Help Center</Link></li>
+                            <li><Link href="/Home/support" className="text-[#6B7280] hover:text-[#111827] text-sm transition-colors">Shipping</Link></li>
+                            <li><Link href="/Home/support" className="text-[#6B7280] hover:text-[#111827] text-sm transition-colors">Returns</Link></li>
+                            <li><Link href="/Home/support" className="text-[#6B7280] hover:text-[#111827] text-sm transition-colors">Contact Us</Link></li>
                         </ul>
                     </div>
                 </div>

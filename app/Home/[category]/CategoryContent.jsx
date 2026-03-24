@@ -1,6 +1,6 @@
 "use client";
 import { useState, useMemo } from "react";
-import { Heart, ShoppingCart, Star } from "lucide-react";
+import { Heart, ShoppingCart, Star, SlidersHorizontal } from "lucide-react";
 import FilterSidebar from "../../components/FilterSidebar/FilterSidebar";
 import { useStore } from "../../store/store";
 import Link from "next/link";
@@ -59,6 +59,7 @@ export default function CategoryContent({ initialProducts, displayCategory }) {
     const [selectedRam, setSelectedRam] = useState(null);
     const [selectedStorage, setSelectedStorage] = useState(null);
     const [minRating, setMinRating] = useState(0);
+    const [isFilterOpen, setIsFilterOpen] = useState(false);
 
     // Compute filtered products
     const filteredProducts = useMemo(() => {
@@ -74,12 +75,26 @@ export default function CategoryContent({ initialProducts, displayCategory }) {
 
     return (
         <div className="max-w-7xl mx-auto px-6 py-10 font-['public-sans',sans-serif]">
-            <h1 className="text-3xl font-bold text-[#0F172A] mb-2 tracking-tight">
-                Category: <span className="text-orange-500">{displayCategory}</span>
-            </h1>
-            <p className="text-[#64748B] text-base mb-8">Showing our best products for {displayCategory}</p>
+            <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
+                <div>
+                    <h1 className="text-4xl font-black text-[#0F172A] mb-3 tracking-tight uppercase">
+                        {displayCategory} <span className="text-orange-500">Collection</span>
+                    </h1>
+                    <p className="text-[#64748B] text-lg font-medium">Explore our premium selection of {displayCategory.toLowerCase()} hardware.</p>
+                </div>
+                
+                {/* Mobile Filter Toggle */}
+                <button 
+                    onClick={() => setIsFilterOpen(true)}
+                    className="lg:hidden flex items-center justify-center gap-3 px-6 py-4 bg-white border-2 border-slate-100 rounded-2xl font-black text-[#0F172A] hover:border-orange-200 transition-all shadow-sm active:scale-95"
+                >
+                    <SlidersHorizontal size={20} className="text-orange-500" />
+                    <span className="uppercase tracking-widest text-xs">Filter Products</span>
+                    <span className="bg-orange-100 text-orange-600 px-2 py-0.5 rounded-lg text-[10px] ml-1">{filteredProducts.length}</span>
+                </button>
+            </div>
 
-            <div className="flex flex-col lg:flex-row gap-8 items-start">
+            <div className="flex flex-col lg:flex-row gap-12 items-start">
                 <FilterSidebar
                     availableBrands={availableBrands}
                     availableRams={availableRams}
@@ -95,6 +110,8 @@ export default function CategoryContent({ initialProducts, displayCategory }) {
                     setSelectedStorage={setSelectedStorage}
                     minRating={minRating}
                     setMinRating={setMinRating}
+                    isOpen={isFilterOpen}
+                    onClose={() => setIsFilterOpen(false)}
                 />
 
                 <div className="flex-1 w-full">

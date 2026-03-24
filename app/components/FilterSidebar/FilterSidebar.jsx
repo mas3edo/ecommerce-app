@@ -1,5 +1,5 @@
 "use client";
-import { Star } from "lucide-react";
+import { Star, X } from "lucide-react";
 
 export default function FilterSidebar({
     availableBrands = [],
@@ -15,7 +15,9 @@ export default function FilterSidebar({
     selectedStorage,
     setSelectedStorage,
     minRating,
-    setMinRating
+    setMinRating,
+    isOpen,
+    onClose
 }) {
 
     const toggleBrand = (brand) => {
@@ -24,47 +26,132 @@ export default function FilterSidebar({
         );
     };
 
-    return (
-        <aside className="w-full lg:w-64 shrink-0 bg-[#F8FAFC] md:bg-transparent rounded-2xl md:rounded-none p-5 md:p-0 mb-8 md:mb-0">
-            {/* Header */}
-            <div className="flex items-center justify-between mb-8">
-                <h3 className="text-xl font-bold text-[#0F172A]">Filters</h3>
-                <button 
-                    onClick={(e) => {
-                        e.preventDefault();
-                        setSelectedBrands([]);
-                        setPriceRange(maxPossiblePrice);
-                        setSelectedRam(null);
-                        setSelectedStorage(null);
-                        setMinRating(0);
-                    }}
-                    className="text-sm font-semibold text-[#f97316] hover:text-[#ea580c] transition-colors"
-                >
-                    Reset All
-                </button>
-            </div>
+    const resetFilters = (e) => {
+        e.preventDefault();
+        setSelectedBrands([]);
+        setPriceRange(maxPossiblePrice);
+        setSelectedRam(null);
+        setSelectedStorage(null);
+        setMinRating(0);
+    };
 
+    return (
+        <>
+            {/* Mobile Backdrop */}
+            <div 
+                className={`fixed inset-0 bg-black/40 backdrop-blur-[2px] z-[60] lg:hidden transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+                onClick={onClose}
+            />
+
+            {/* Sidebar Content */}
+            <aside className={`
+                fixed top-0 left-0 h-full w-[320px] bg-white z-[70] p-8 overflow-y-auto transition-transform duration-300 ease-out lg:hidden
+                ${isOpen ? 'translate-x-0 shadow-2xl' : '-translate-x-full'}
+            `}>
+                <div className="flex items-center justify-between mb-8">
+                    <h3 className="text-2xl font-black text-[#0F172A] uppercase tracking-tight">Filters</h3>
+                    <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-xl transition-colors">
+                        <X size={24} />
+                    </button>
+                </div>
+
+                {/* Filter Content (shared with desktop) */}
+                <FilterContent 
+                    availableBrands={availableBrands}
+                    availableRams={availableRams}
+                    availableStorages={availableStorages}
+                    maxPossiblePrice={maxPossiblePrice}
+                    selectedBrands={selectedBrands}
+                    toggleBrand={toggleBrand}
+                    priceRange={priceRange}
+                    setPriceRange={setPriceRange}
+                    selectedRam={selectedRam}
+                    setSelectedRam={setSelectedRam}
+                    selectedStorage={selectedStorage}
+                    setSelectedStorage={setSelectedStorage}
+                    minRating={minRating}
+                    setMinRating={setMinRating}
+                    resetFilters={resetFilters}
+                />
+                
+                <div className="mt-10">
+                    <button 
+                        onClick={onClose}
+                        className="w-full py-4 bg-[#0F172A] text-white font-bold rounded-2xl shadow-xl hover:bg-slate-800 transition-all uppercase tracking-widest"
+                    >
+                        Show Results
+                    </button>
+                </div>
+            </aside>
+
+            {/* Desktop Sidebar (Permanent) */}
+            <aside className="hidden lg:block w-72 shrink-0 sticky top-24 self-start">
+                 <div className="flex items-center justify-between mb-8">
+                    <h3 className="text-xl font-black text-[#0F172A] uppercase tracking-tight">Filters</h3>
+                    <button 
+                        onClick={resetFilters}
+                        className="text-xs font-bold text-orange-600 hover:text-orange-700 transition-colors uppercase tracking-widest"
+                    >
+                        Reset All
+                    </button>
+                </div>
+                <FilterContent 
+                    availableBrands={availableBrands}
+                    availableRams={availableRams}
+                    availableStorages={availableStorages}
+                    maxPossiblePrice={maxPossiblePrice}
+                    selectedBrands={selectedBrands}
+                    toggleBrand={toggleBrand}
+                    priceRange={priceRange}
+                    setPriceRange={setPriceRange}
+                    selectedRam={selectedRam}
+                    setSelectedRam={setSelectedRam}
+                    selectedStorage={selectedStorage}
+                    setSelectedStorage={setSelectedStorage}
+                    minRating={minRating}
+                    setMinRating={setMinRating}
+                    resetFilters={resetFilters}
+                />
+            </aside>
+        </>
+    );
+}
+
+// Sub-component to organize filter logic
+function FilterContent({
+    availableBrands,
+    availableRams,
+    availableStorages,
+    maxPossiblePrice,
+    selectedBrands,
+    toggleBrand,
+    priceRange,
+    setPriceRange,
+    selectedRam,
+    setSelectedRam,
+    selectedStorage,
+    setSelectedStorage,
+    minRating,
+    setMinRating
+}) {
+    return (
+        <div className="space-y-10">
             {/* BRAND */}
             {availableBrands.length > 0 && (
-                <div className="mb-8">
-                    <h4 className="text-xs font-bold text-[#94a3b8] tracking-widest uppercase mb-4">Brand</h4>
-                    <div className="flex flex-col gap-3">
+                <div>
+                    <h4 className="text-[10px] font-black text-[#94a3b8] tracking-[0.2em] uppercase mb-5">Brand</h4>
+                    <div className="flex flex-col gap-3.5">
                         {availableBrands.map((brand) => (
-                            <label key={brand} className="flex items-center gap-3 cursor-pointer group">
-                                <div className={`w-5 h-5 rounded-[4px] border border-gray-300 flex items-center justify-center transition-all ${selectedBrands.includes(brand) ? 'bg-[#ea580c] border-[#ea580c]' : 'bg-white group-hover:border-[#ea580c]'}`}>
+                            <label key={brand} className="flex items-center gap-3.5 cursor-pointer group">
+                                <div className={`w-5 h-5 rounded-[6px] border-2 flex items-center justify-center transition-all ${selectedBrands.includes(brand) ? 'bg-[#ea580c] border-[#ea580c] shadow-lg shadow-orange-500/20' : 'bg-white border-gray-200 group-hover:border-[#ea580c]'}`}>
                                     {selectedBrands.includes(brand) && (
-                                        <svg className="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                                        <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={4}>
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                                         </svg>
                                     )}
                                 </div>
-                                <input 
-                                    type="checkbox" 
-                                    className="hidden" 
-                                    checked={selectedBrands.includes(brand)} 
-                                    onChange={() => toggleBrand(brand)} 
-                                />
-                                <span className="text-sm text-[#334155] font-medium">{brand}</span>
+                                <input type="checkbox" className="hidden" checked={selectedBrands.includes(brand)} onChange={() => toggleBrand(brand)} />
+                                <span className={`text-[15px] font-bold transition-colors ${selectedBrands.includes(brand) ? 'text-[#0F172A]' : 'text-slate-500 group-hover:text-[#0F172A]'}`}>{brand}</span>
                             </label>
                         ))}
                     </div>
@@ -72,41 +159,41 @@ export default function FilterSidebar({
             )}
 
             {/* PRICE RANGE */}
-            <div className="mb-8">
-                <h4 className="text-xs font-bold text-[#94a3b8] tracking-widest uppercase mb-4">Price Range</h4>
-                <div className="relative mb-6">
+            <div>
+                <h4 className="text-[10px] font-black text-[#94a3b8] tracking-[0.2em] uppercase mb-5">Max Price</h4>
+                <div className="relative mb-6 px-1">
                     <input 
                         type="range" 
                         min="0" 
                         max={maxPossiblePrice} 
                         value={priceRange} 
                         onChange={(e) => setPriceRange(Number(e.target.value))}
-                        className="w-full h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#ea580c]"
+                        className="w-full h-1.5 bg-gray-200 rounded-full appearance-none cursor-pointer accent-[#ea580c]"
                     />
                 </div>
-                <div className="flex items-center justify-between gap-4">
-                    <div className="flex-1 py-2 px-3 border border-gray-200 rounded-lg text-center bg-white shadow-sm">
-                        <span className="text-sm font-semibold text-[#0F172A]">$0</span>
+                <div className="flex items-center h-12 gap-3">
+                    <div className="flex-1 h-full border-2 border-slate-100 rounded-xl flex items-center justify-center bg-slate-50/50">
+                        <span className="text-sm font-black text-[#0F172A]">$0</span>
                     </div>
-                    <div className="flex-1 py-2 px-3 border border-gray-200 rounded-lg text-center bg-white shadow-sm">
-                        <span className="text-sm font-semibold text-[#0F172A]">${priceRange}</span>
+                    <div className="flex-1 h-full border-2 border-orange-100 rounded-xl flex items-center justify-center bg-orange-50/30">
+                        <span className="text-sm font-black text-orange-600">${priceRange}</span>
                     </div>
                 </div>
             </div>
 
             {/* RAM */}
             {availableRams.length > 0 && (
-                <div className="mb-8">
-                    <h4 className="text-xs font-bold text-[#94a3b8] tracking-widest uppercase mb-4">RAM</h4>
-                    <div className="flex flex-wrap gap-2.5">
+                <div>
+                     <h4 className="text-[10px] font-black text-[#94a3b8] tracking-[0.2em] uppercase mb-5">RAM Capacity</h4>
+                    <div className="flex flex-wrap gap-2">
                         {availableRams.map((ram) => (
                             <button 
                                 key={ram}
                                 onClick={(e) => { e.preventDefault(); setSelectedRam(prev => prev === ram ? null : ram); }}
-                                className={`px-4 py-2 text-sm font-semibold rounded-lg border transition-all ${
+                                className={`px-4 py-2.5 text-xs font-black rounded-xl border-2 transition-all uppercase ${
                                     selectedRam === ram 
-                                    ? 'border-[#ea580c] text-[#ea580c] bg-orange-50' 
-                                    : 'border-gray-200 text-[#475569] bg-white hover:border-gray-300'
+                                    ? 'border-orange-500 text-orange-600 bg-orange-50 shadow-sm' 
+                                    : 'border-slate-100 text-slate-400 bg-white hover:border-slate-300'
                                 }`}
                             >
                                 {ram}
@@ -118,52 +205,50 @@ export default function FilterSidebar({
 
             {/* STORAGE */}
             {availableStorages.length > 0 && (
-                <div className="mb-8">
-                    <h4 className="text-xs font-bold text-[#94a3b8] tracking-widest uppercase mb-4">Storage</h4>
+                <div>
+                    <h4 className="text-[10px] font-black text-[#94a3b8] tracking-[0.2em] uppercase mb-5">Storage</h4>
                     <div className="flex flex-col gap-3">
                         {availableStorages.map((storage) => (
-                            <label key={storage} className="flex items-center gap-3 cursor-pointer group">
+                            <label key={storage} className="flex items-center gap-3.5 cursor-pointer group">
                                 <div className="relative flex items-center justify-center">
                                     <input 
                                         type="radio" 
                                         name="storage" 
-                                        className="peer appearance-none w-5 h-5 border border-gray-300 rounded-full checked:border-[#ea580c] transition-all cursor-pointer bg-white group-hover:border-[#ea580c]"
+                                        className="peer appearance-none w-5 h-5 border-2 border-gray-200 rounded-full checked:border-[#ea580c] transition-all cursor-pointer bg-white group-hover:border-[#ea580c]"
                                         checked={selectedStorage === storage}
                                         onChange={() => setSelectedStorage(prev => prev === storage ? null : storage)}
                                         onClick={() => { if(selectedStorage === storage) setSelectedStorage(null) }}
                                     />
-                                    <div className="absolute w-2.5 h-2.5 bg-[#ea580c] rounded-full scale-0 peer-checked:scale-100 transition-transform duration-200 pointer-events-none"></div>
+                                    <div className="absolute w-2 h-2 bg-[#ea580c] rounded-full scale-0 peer-checked:scale-100 transition-transform duration-200 pointer-events-none"></div>
                                 </div>
-                                <span className="text-sm text-[#334155] font-medium">{storage}</span>
+                                <span className={`text-[15px] font-bold transition-colors ${selectedStorage === storage ? 'text-[#0F172A]' : 'text-slate-500 group-hover:text-[#0F172A]'}`}>{storage}</span>
                             </label>
                         ))}
                     </div>
                 </div>
             )}
 
-            {/* CUSTOMER RATINGS */}
-            <div className="mb-8">
-                <h4 className="text-xs font-bold text-[#94a3b8] tracking-widest uppercase mb-4">Customer Ratings</h4>
-                <div className="flex flex-col gap-3">
-                    <button onClick={(e) => { e.preventDefault(); setMinRating(prev => prev === 4 ? 0 : 4); }} className={`flex items-center gap-2 group cursor-pointer bg-transparent border-none p-0 ${minRating === 4 ? 'opacity-100' : 'opacity-60 hover:opacity-100'}`}>
-                        <div className="flex gap-1 text-[#facc15]">
-                            {[...Array(5)].map((_, i) => (
-                                <Star key={i} size={16} fill={i < 4 ? "currentColor" : "none"} className={i < 4 ? "" : "text-gray-300"} />
-                            ))}
-                        </div>
-                        <span className="text-sm text-[#475569] font-medium group-hover:text-[#0F172A] transition-colors ml-1">& Up</span>
-                    </button>
-                    <button onClick={(e) => { e.preventDefault(); setMinRating(prev => prev === 3 ? 0 : 3); }} className={`flex items-center gap-2 group cursor-pointer bg-transparent border-none p-0 ${minRating === 3 ? 'opacity-100' : 'opacity-60 hover:opacity-100'}`}>
-                        <div className="flex gap-1 text-[#facc15]">
-                            {[...Array(5)].map((_, i) => (
-                                <Star key={i} size={16} fill={i < 3 ? "currentColor" : "none"} className={i < 3 ? "" : "text-gray-300"} />
-                            ))}
-                        </div>
-                        <span className="text-sm text-[#475569] font-medium group-hover:text-[#0F172A] transition-colors ml-1">& Up</span>
-                    </button>
+            {/* RATINGS */}
+            <div>
+                <h4 className="text-[10px] font-black text-[#94a3b8] tracking-[0.2em] uppercase mb-5">Rating</h4>
+                <div className="flex flex-col gap-4">
+                    {[4, 3].map(rating => (
+                        <button 
+                            key={rating}
+                            onClick={(e) => { e.preventDefault(); setMinRating(prev => prev === rating ? 0 : rating); }} 
+                            className={`flex items-center gap-3 transition-opacity ${minRating === rating ? 'opacity-100' : 'opacity-50 hover:opacity-100'}`}
+                        >
+                            <div className="flex gap-1 text-[#facc15]">
+                                {[...Array(5)].map((_, i) => (
+                                    <Star key={i} size={15} fill={i < rating ? "currentColor" : "none"} className={i < rating ? "" : "text-gray-200"} />
+                                ))}
+                            </div>
+                            <span className="text-[13px] font-extrabold text-[#0F172A] uppercase tracking-tighter">& Up</span>
+                        </button>
+                    ))}
                 </div>
             </div>
-
-        </aside>
+        </div>
     );
 }
+

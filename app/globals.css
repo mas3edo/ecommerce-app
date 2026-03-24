@@ -72,3 +72,50 @@ body {
 .glow-effect:hover::before {
   opacity: 1;
 }
+
+/* Premium Toast Notifications Styling */
+.Toastify__toast {
+  border-radius: 16px !important;
+  background: rgba(255, 255, 255, 0.8) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1) !important;
+  padding: 16px !important;
+  margin-bottom: 12px !important;
+}
+
+.Toastify__toast-body {
+  font-family: inherit !important;
+  font-weight: 600 !important;
+  color: #1e293b !important;
+  padding: 0 !important;
+}
+
+.Toastify__toast--success {
+  border-left: 4px solid #22c55e !important;
+}
+
+.Toastify__toast--info {
+  border-left: 4px solid #3b82f6 !important;
+}
+
+.Toastify__toast--warning {
+  border-left: 4px solid #f59e0b !important;
+}
+
+.Toastify__progress-bar {
+  height: 4px !important;
+  border-bottom-left-radius: 16px !important;
+  border-bottom-right-radius: 16px !important;
+}
+
+/* Mobile Tweaks */
+@media (max-width: 480px) {
+  .Toastify__toast-container {
+    width: 90vw !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    top: 20px !important;
+  }
+}

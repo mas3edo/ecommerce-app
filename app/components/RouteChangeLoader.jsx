@@ -1,55 +1,54 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
+import { useEffect, useState, useCallback } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import LoadingAnimation from "./LoadingAnimation";
 
 export default function RouteChangeLoader() {
     const pathname = usePathname();
+    const router = useRouter();
     const [isLoading, setIsLoading] = useState(false);
 
+    // Reset loading state when the actual page transition finishes
     useEffect(() => {
-        // When the pathname changes, wait 3 seconds before hiding the loader
-        if (isLoading) {
-            const timer = setTimeout(() => {
-                setIsLoading(false);
-            }, 800); // 0.8 seconds delay
-            return () => clearTimeout(timer);
-        }
-    }, [pathname, isLoading]);
+        setIsLoading(false);
+    }, [pathname]);
 
     useEffect(() => {
-        const handleStart = () => setIsLoading(true);
-        const handleStop = () => setIsLoading(false);
-
-        // Next.js App Router doesn't expose native router events yet,
-        // so we intercept clicks on anchors linking to internal routes.
         const handleClick = (e) => {
-            if (e.defaultPrevented) return;
-            const path = e.composedPath();
-            const anchor = path.find(el => el.tagName === "A");
+            // If the user clicked a button (like Favorite or Add to Cart), ignore the routing intercept
+            // so we don't accidentally navigate when they just wanted to trigger an action within a card.
+            if (e.target.closest("button")) return;
+
+            // Find the closest anchor tag
+            const anchor = e.target.closest("a");
             
-            if (anchor && anchor.href && anchor.target !== "_blank") {
+            // If there's an anchor, it's internal, not a blank target, and not a download link
+            if (anchor && anchor.href && anchor.target !== "_blank" && !anchor.hasAttribute("download")) {
                 const url = new URL(anchor.href);
                 const isInternal = url.origin === window.location.origin;
-                const isDifferentPath = url.pathname !== window.location.pathname;
+                const isHash = url.hash && url.pathname === window.location.pathname;
+                const isSamePath = url.pathname === window.location.pathname && url.search === window.location.search;
 
-                if (isInternal && isDifferentPath) {
+                if (isInternal && !isHash && !isSamePath) {
+                    // Intercept the click BEFORE Next.js Link handles it
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
                     setIsLoading(true);
+
+                    // Wait for the animation/delay
+                    setTimeout(() => {
+                        router.push(url.pathname + url.search + url.hash);
+                    }, 800); // 0.8 seconds delay
                 }
             }
         };
 
-        document.addEventListener("click", handleClick);
-        
-        // Listen to regular history changes (e.g. back/forward buttons)
-        window.addEventListener("popstate", handleStop);
-
-        return () => {
-            document.removeEventListener("click", handleClick);
-            window.removeEventListener("popstate", handleStop);
-        };
-    }, []);
+        // Use capture phase (true) to intercept the event before React's synthetic events
+        document.addEventListener("click", handleClick, true);
+        return () => document.removeEventListener("click", handleClick, true);
+    }, [router, pathname]);
 
     if (!isLoading) return null;
 

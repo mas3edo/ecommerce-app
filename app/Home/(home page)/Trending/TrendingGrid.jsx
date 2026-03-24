@@ -36,7 +36,7 @@ export default function TrendingGrid({ displayProducts }) {
             const { scrollLeft, clientWidth } = scrollRef.current;
             const scrollAmount = clientWidth * 0.8; // Scroll 80% of the visible area
             const targetScroll = direction === 'left' ? scrollLeft - scrollAmount : scrollLeft + scrollAmount;
-            
+
             scrollRef.current.scrollTo({
                 left: targetScroll,
                 behavior: 'smooth'
@@ -48,13 +48,13 @@ export default function TrendingGrid({ displayProducts }) {
         <div className="relative group/container">
             {/* Scroll Buttons */}
             <div className="absolute -top-16 right-0 flex gap-2 z-20">
-                <button 
+                <button
                     onClick={() => scroll('left')}
                     className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-gray-600 bg-white hover:border-orange-500 hover:text-orange-500 hover:shadow-md transition-all active:scale-95"
                 >
                     <ChevronLeft size={20} />
                 </button>
-                <button 
+                <button
                     onClick={() => scroll('right')}
                     className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-gray-600 bg-white hover:border-orange-500 hover:text-orange-500 hover:shadow-md transition-all active:scale-95"
                 >
@@ -62,7 +62,7 @@ export default function TrendingGrid({ displayProducts }) {
                 </button>
             </div>
 
-            <div 
+            <div
                 ref={scrollRef}
                 className="flex overflow-x-auto pb-8 gap-6 snap-x snap-mandatory no-scrollbar scroll-smooth"
             >
@@ -88,7 +88,7 @@ export default function TrendingGrid({ displayProducts }) {
                                 {/* Favorite Button */}
                                 <button
                                     onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleFavorite(product); }}
-                                    className={`absolute top-3 right-3 z-10 w-8 h-8 rounded-full shadow-sm flex items-center justify-center transition-all ${isFavorite ? 'bg-red-50 text-red-500' : 'bg-white/90 backdrop-blur-sm text-gray-400 hover:text-red-500 hover:bg-white'}`}
+                                    className={`absolute top-3 right-3 z-10 w-8 h-8 rounded-full shadow-sm flex items-center justify-center transition-all  cursor-pointer ${isFavorite ? 'bg-red-50 text-red-500' : 'bg-white/90 backdrop-blur-sm text-gray-400 hover:text-red-500 hover:bg-white'}`}
                                 >
                                     <Heart size={16} strokeWidth={2} fill={isFavorite ? "currentColor" : "none"} />
                                 </button>

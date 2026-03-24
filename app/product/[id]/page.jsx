@@ -75,7 +75,7 @@ export default async function ProductDetail({ params }) {
                 <div className="flex flex-col md:flex-row gap-12 lg:gap-20 items-start">
 
                     {/* Image Section */}
-                    <div className="w-full md:w-1/2 lg:w-[500px] shrink-0 sticky top-24">
+                    <div className="w-full md:w-1/2 lg:w-[500px] shrink-0  top-24">
                         <div className="aspect-square bg-[#F8FAFC] rounded-3xl border border-gray-100 flex items-center justify-center p-8 relative overflow-hidden mix-blend-multiply shadow-sm">
                             {(product.isHotDeal || product.originalPrice) && (
                                 <div className="absolute top-6 left-6 z-10 bg-[#f97316] text-white text-xs font-bold px-3 py-1.5 rounded-md shadow-sm tracking-wide">

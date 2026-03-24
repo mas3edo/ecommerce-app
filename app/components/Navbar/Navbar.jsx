@@ -20,14 +20,14 @@ export default function Navbar() {
     const router = useRouter();
     const cart = useStore((state) => state.cart || []);
     const favorites = useStore((state) => state.favorites || []);
-    
+
     // Derived counts
     const cartCount = cart.reduce((acc, item) => acc + (item.quantity || 1), 0);
     const favCount = favorites.length;
 
     const [dropdownOpen, setDropdownOpen] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
-    
+
     // Live Search State
     const [searchValue, setSearchValue] = useState("");
     const [searchResults, setSearchResults] = useState([]);
@@ -42,7 +42,7 @@ export default function Navbar() {
                 setSearchResults([]); // close desktop dropdown
             }
             if (mobileSearchRef.current && !mobileSearchRef.current.contains(event.target)) {
-                 // optionally handle mobile outside click
+                // optionally handle mobile outside click
             }
         };
         document.addEventListener("mousedown", handleClickOutside);
@@ -113,7 +113,7 @@ export default function Navbar() {
                         {dropdownOpen && (
                             <div className="absolute top-[calc(100%+8px)] left-0 min-w-[180px] bg-white border border-gray-200 rounded-xl shadow-lg p-1.5 z-50 animate-[fadeDown_0.15s_ease-out]">
                                 {categories.map((cat) => (
-                                    <Link key={cat} href={`/Home/category/${cat.toLowerCase()}`} className="block px-3.5 py-2 text-sm text-gray-700 rounded-lg transition-colors duration-150 hover:bg-orange-50 hover:text-orange-500">
+                                    <Link key={cat} href={`/Home/${cat.toLowerCase()}`} className="block px-3.5 py-2 text-sm text-gray-700 rounded-lg transition-colors duration-150 hover:bg-orange-50 hover:text-orange-500">
                                         {cat}
                                     </Link>
                                 ))}
@@ -122,7 +122,7 @@ export default function Navbar() {
                     </div>
 
                     <Link href="/Home/deals" className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-700 rounded-lg transition-colors duration-150 hover:bg-orange-50 hover:text-orange-500">Deals</Link>
-                    <Link href="/new-arrivals" className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-700 rounded-lg transition-colors duration-150 hover:bg-orange-50 hover:text-orange-500">New Arrivals</Link>
+                    <Link href="/Home/new-arrivals" className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-700 rounded-lg transition-colors duration-150 hover:bg-orange-50 hover:text-orange-500">New Arrivals</Link>
                     <Link href="/Home/support" className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-700 rounded-lg transition-colors duration-150 hover:bg-orange-50 hover:text-orange-500">Support</Link>
                 </div>
 
@@ -134,7 +134,7 @@ export default function Navbar() {
                             type="search"
                             value={searchValue}
                             onChange={(e) => setSearchValue(e.target.value)}
-                            onFocus={() => { if(searchValue) setSearchValue(searchValue) }} // ensures dropdown opens if there's text
+                            onFocus={() => { if (searchValue) setSearchValue(searchValue) }} // ensures dropdown opens if there's text
                             placeholder="Search for gadgets..."
                             className="w-full py-2.5 pr-3.5 pl-9 text-sm text-gray-900 bg-gray-50 border border-gray-200 rounded-lg outline-none transition-all duration-150 placeholder:text-gray-400 focus:border-orange-500 focus:ring-4 focus:ring-orange-500/10 focus:bg-white"
                         />
@@ -151,9 +151,9 @@ export default function Navbar() {
                             ) : searchResults.length > 0 ? (
                                 <div className="max-h-[300px] overflow-y-auto">
                                     {searchResults.map(p => (
-                                        <Link 
-                                            key={p.id} 
-                                            href={`/product/${p.id}`} 
+                                        <Link
+                                            key={p.id}
+                                            href={`/product/${p.id}`}
                                             onClick={() => { setSearchValue(""); setSearchResults([]); }}
                                             className="flex items-center gap-3 p-3 hover:bg-orange-50 border-b border-gray-50 last:border-0 transition-colors group"
                                         >
@@ -198,13 +198,13 @@ export default function Navbar() {
                     </Link>
 
                     {/* Account */}
-                    <button className="relative w-10 h-10 rounded-lg flex items-center justify-center text-gray-700 transition-colors duration-150 hover:bg-gray-100 hover:text-orange-500" aria-label="Account">
+                    <button className="relative w-10 h-10 rounded-lg md:flex hidden items-center justify-center text-gray-700 transition-colors duration-150 hover:bg-gray-100 hover:text-orange-500" aria-label="Account">
                         <User size={22} />
                     </button>
 
                     {/* Avatar */}
                     <button className="group rounded-full p-0 ml-1" aria-label="Profile">
-                        <div className="w-[34px] h-[34px] rounded-full bg-gradient-to-br from-gray-200 to-gray-300 border-2 border-gray-200 transition-colors duration-150 group-hover:border-orange-500" />
+                        <div className="w-[34px] h-[34px] rounded-full md:flex hidden bg-gradient-to-br from-gray-200 to-gray-300 border-2 border-gray-200 transition-colors duration-150 group-hover:border-orange-500" />
                     </button>
 
                     {/* Logout */}
@@ -252,9 +252,9 @@ export default function Navbar() {
                                 ) : searchResults.length > 0 ? (
                                     <div className="max-h-[250px] overflow-y-auto">
                                         {searchResults.map(p => (
-                                            <Link 
-                                                key={p.id} 
-                                                href={`/product/${p.id}`} 
+                                            <Link
+                                                key={p.id}
+                                                href={`/product/${p.id}`}
                                                 onClick={() => { setSearchValue(""); setSearchResults([]); setMobileOpen(false); }}
                                                 className="flex items-center gap-3 p-3 hover:bg-orange-50 border-b border-gray-50 last:border-0 transition-colors group"
                                             >
@@ -275,9 +275,9 @@ export default function Navbar() {
                             </div>
                         )}
                     </div>
-                    
+
                     <Link href="/Home/deals" className="block px-3 py-2.5 text-[15px] font-medium text-slate-900 rounded-lg transition-colors hover:bg-orange-50 hover:text-orange-500" onClick={() => setMobileOpen(false)}>Deals</Link>
-                    <Link href="/new-arrivals" className="block px-3 py-2.5 text-[15px] font-medium text-slate-900 rounded-lg transition-colors hover:bg-orange-50 hover:text-orange-500" onClick={() => setMobileOpen(false)}>New Arrivals</Link>
+                    <Link href="/Home/new-arrivals" className="block px-3 py-2.5 text-[15px] font-medium text-slate-900 rounded-lg transition-colors hover:bg-orange-50 hover:text-orange-500" onClick={() => setMobileOpen(false)}>New Arrivals</Link>
                     <Link href="/Home/support" className="block px-3 py-2.5 text-[15px] font-medium text-slate-900 rounded-lg transition-colors hover:bg-orange-50 hover:text-orange-500" onClick={() => setMobileOpen(false)}>Support</Link>
                     <div className="h-px bg-gray-200 my-2" />
                     {categories.map((cat) => (
