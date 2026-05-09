@@ -212,15 +212,14 @@ export default function Navbar() {
                 {/* Right Icons */}
                 <div className="flex items-center gap-1 ml-auto">
                     {/* Theme Toggle */}
-                    {mounted && (
-                        <button
-                            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                            className="relative w-10 h-10 rounded-xl flex items-center justify-center text-gray-500 dark:text-[#7C94B0] transition-colors duration-150 hover:bg-gray-100 dark:hover:bg-emerald-500/10 hover:text-emerald-500 dark:hover:text-emerald-400"
-                            aria-label="Toggle Theme"
-                        >
-                            {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
-                        </button>
-                    )}
+                    <button
+                        onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                        className="relative w-10 h-10 rounded-xl flex items-center justify-center text-gray-500 dark:text-[#7C94B0] transition-colors duration-150 hover:bg-gray-100 dark:hover:bg-emerald-500/10 hover:text-emerald-500 dark:hover:text-emerald-400"
+                        aria-label="Toggle Theme"
+                        disabled={!mounted}
+                    >
+                        {mounted ? (theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />) : <Moon size={20} />}
+                    </button>
 
                     {/* Favorites */}
                     <Link href="/favorite" className="relative w-10 h-10 rounded-xl flex items-center justify-center text-gray-600 dark:text-[#AABDD1] transition-colors duration-150 hover:bg-red-500/100/10 hover:text-red-500" aria-label="Favorites">

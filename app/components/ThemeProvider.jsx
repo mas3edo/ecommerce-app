@@ -6,9 +6,11 @@ export function ThemeProvider({ children }) {
   return (
     <NextThemesProvider 
       attribute="class" 
-      defaultTheme="dark" 
-      enableSystem
-      storageKey="theme"
+      defaultTheme="dark"
+      themes={["light", "dark"]}
+      enableSystem={false}
+      storageKey="theme-preference"
+      disableTransitionOnChange
       forcedTheme={undefined}
     >
       {children}
