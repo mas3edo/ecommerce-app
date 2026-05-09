@@ -126,10 +126,13 @@ export default function AuthComponent() {
     setLoading(true);
     setMessage({ type: "", text: "" });
 
+    // Get the correct redirect URL (works on localhost and production)
+    const redirectUrl = `${typeof window !== 'undefined' ? window.location.origin : ''}/auth/callback`;
+
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: 'http://localhost:3000/Home'
+        redirectTo: redirectUrl
       }
     });
 

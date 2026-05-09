@@ -15,6 +15,12 @@ export default function RouteGuard({ children }) {
 
     useEffect(() => {
         const checkSession = async () => {
+            // Allow auth callback route without checking session
+            if (pathname === "/auth/callback") {
+                setChecking(false);
+                return;
+            }
+
             const { data: { session } } = await supabase.auth.getSession();
             if (!session) {
                 // No session → send to login unless already on login page
@@ -38,7 +44,7 @@ export default function RouteGuard({ children }) {
         // Listen for auth changes
         const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
             if (!session) {
-                if (pathname !== "/") {
+                if (pathname !== "/" && pathname !== "/auth/callback") {
                     router.replace("/");
                 }
             } else {
