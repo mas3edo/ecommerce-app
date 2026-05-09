@@ -82,20 +82,19 @@ export default async function Trending() {
     }));
 
     return (
-        <section className="max-w-7xl mx-auto px-6 py-16 font-['public-sans',sans-serif]">
-
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 py-14">
             {/* Header */}
             <div className="flex items-end justify-between mb-8">
                 <div>
-                    <h2 className="text-3xl font-bold mb-2 tracking-tight text-[#0F172A]">Trending Now</h2>
-                    <p className="text-[#64748B] text-base">Our most popular tech this week.</p>
+                    <h2 style={{fontFamily:"'Space Grotesk',sans-serif",fontSize:'1.875rem',fontWeight:700,color:'#F1F5F9',letterSpacing:'-0.03em',marginBottom:'6px'}}>
+                        Trending Now
+                    </h2>
+                    <p style={{color:'#64748B',fontSize:'0.9375rem'}}>Our most popular tech this week.</p>
                 </div>
-
             </div>
 
             {/* Product Grid */}
             <TrendingGrid displayProducts={displayProducts} />
-
         </section>
     );
 }

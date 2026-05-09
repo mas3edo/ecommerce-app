@@ -1,47 +1,65 @@
+"use client";
 
 export default function Join() {
     return (
-        <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div className="relative overflow-hidden rounded-3xl bg-[#FAE8DD] p-8 md:p-12 lg:p-16 flex items-center justify-between">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
+            <div style={{
+                position:'relative',overflow:'hidden',borderRadius:'28px',
+                background:'linear-gradient(135deg,rgba(139,92,246,0.12) 0%,rgba(99,102,241,0.08) 50%,rgba(6,182,212,0.1) 100%)',
+                border:'1px solid rgba(139,92,246,0.25)',
+                padding:'64px 48px',
+                boxShadow:'0 0 0 1px rgba(139,92,246,0.1), 0 40px 80px rgba(0,0,0,0.5), 0 0 60px rgba(139,92,246,0.08)'
+            }}>
+                {/* Decorative orbs */}
+                <div style={{position:'absolute',top:'-80px',right:'-80px',width:'320px',height:'320px',borderRadius:'50%',background:'radial-gradient(circle,rgba(139,92,246,0.2),transparent 70%)',pointerEvents:'none'}} />
+                <div style={{position:'absolute',bottom:'-60px',left:'30%',width:'240px',height:'240px',borderRadius:'50%',background:'radial-gradient(circle,rgba(6,182,212,0.15),transparent 70%)',pointerEvents:'none'}} />
+                {/* Grid */}
+                <div style={{position:'absolute',inset:0,opacity:0.04,backgroundImage:'linear-gradient(rgba(139,92,246,1) 1px,transparent 1px),linear-gradient(90deg,rgba(139,92,246,1) 1px,transparent 1px)',backgroundSize:'50px 50px',pointerEvents:'none'}} />
 
-                {/* Text & Form Wrapper */}
-                <div className="relative z-10 max-w-2xl w-full">
-                    <h2 className="text-3xl md:text-4xl font-extrabold text-[#111827] mb-4 tracking-tight">
-                        Join the Tech Revolution
+                <div style={{position:'relative',zIndex:1,maxWidth:'600px'}}>
+                    <div style={{display:'inline-flex',alignItems:'center',gap:'8px',marginBottom:'20px',
+                        background:'linear-gradient(135deg,rgba(139,92,246,0.2),rgba(6,182,212,0.1))',
+                        border:'1px solid rgba(139,92,246,0.4)',borderRadius:'999px',padding:'6px 14px',
+                        boxShadow:'0 0 16px rgba(139,92,246,0.25)'}}>
+                        <span style={{color:'#A78BFA',fontSize:'11px',fontWeight:700,letterSpacing:'0.08em',fontFamily:"'Space Grotesk',sans-serif"}}>✦ EXCLUSIVE OFFER</span>
+                    </div>
+
+                    <h2 style={{fontFamily:"'Space Grotesk',sans-serif",fontSize:'clamp(1.75rem,4vw,2.5rem)',fontWeight:800,color:'#F1F5F9',letterSpacing:'-0.04em',marginBottom:'16px',lineHeight:1.1}}>
+                        Join the <span style={{background:'linear-gradient(135deg,#8B5CF6,#06B6D4)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',backgroundClip:'text'}}>Tech Revolution</span>
                     </h2>
 
-                    <p className="text-[#4B5563] text-lg font-medium mb-8 leading-relaxed max-w-xl">
-                        Subscribe to our newsletter and get <span className="text-[#EA580C] font-semibold">15% off</span> your first order. Stay ahead with the latest gadget updates.
+                    <p style={{color:'#94A3B8',fontSize:'1.0625rem',lineHeight:1.7,marginBottom:'32px',maxWidth:'480px'}}>
+                        Subscribe and get <span style={{color:'#A78BFA',fontWeight:700}}>15% off</span> your first order. Stay ahead with the latest gadget releases.
                     </p>
 
-                    <div className="flex flex-col sm:flex-row gap-3 mb-4 max-w-lg" >
-                        <div className="flex-grow">
-                            <input
-                                type="email"
-                                placeholder="Enter your email"
-                                className="w-full h-12 md:h-14 px-5 rounded-xl border border-transparent focus:border-[#EA580C] focus:ring-2 focus:ring-[#EA580C]/20 outline-none text-[#111827] bg-white shadow-sm transition-all"
-                                required
-                            />
-                        </div>
-                        <button
-                            type="submit"
-                            className="h-12 md:h-14 px-8 rounded-xl bg-[#EA580C] hover:bg-[#D94E07] text-white font-semibold transition-colors duration-300 shadow-sm whitespace-nowrap"
+                    <div style={{display:'flex',flexWrap:'wrap',gap:'12px',marginBottom:'16px',maxWidth:'500px'}}>
+                        <input
+                            type="email"
+                            placeholder="Enter your email address"
+                            style={{
+                                flex:'1 1 200px',height:'52px',padding:'0 20px',borderRadius:'14px',
+                                background:'rgba(255,255,255,0.05)',border:'1px solid rgba(139,92,246,0.25)',
+                                color:'#E2E8F0',fontSize:'14px',outline:'none',
+                                fontFamily:"'Inter',sans-serif",minWidth:'0'
+                            }}
+                            onFocus={e=>{e.target.style.borderColor='rgba(139,92,246,0.6)';e.target.style.boxShadow='0 0 0 3px rgba(139,92,246,0.12)'}}
+                            onBlur={e=>{e.target.style.borderColor='rgba(139,92,246,0.25)';e.target.style.boxShadow='none'}}
+                        />
+                        <button style={{
+                            height:'52px',padding:'0 28px',borderRadius:'14px',fontWeight:700,
+                            background:'linear-gradient(135deg,#8B5CF6,#6366F1)',color:'white',
+                            border:'none',cursor:'pointer',fontSize:'15px',
+                            boxShadow:'0 4px 20px rgba(139,92,246,0.5)',
+                            fontFamily:"'Space Grotesk',sans-serif",whiteSpace:'nowrap',
+                            transition:'all 0.25s ease'
+                        }}
+                            onMouseEnter={e=>{e.currentTarget.style.boxShadow='0 8px 36px rgba(139,92,246,0.75)';e.currentTarget.style.transform='translateY(-1px)'}}
+                            onMouseLeave={e=>{e.currentTarget.style.boxShadow='0 4px 20px rgba(139,92,246,0.5)';e.currentTarget.style.transform='translateY(0)'}}
                         >
                             Subscribe Now
                         </button>
                     </div>
-
-                    <p className="text-sm text-[#9CA3AF] font-medium">
-                        By subscribing, you agree to our Terms of Service and Privacy Policy.
-                    </p>
-                </div>
-
-                {/* Decorative Envelope Icon on the Right */}
-                <div className="absolute right-0 bottom-0 translate-x-1/4 translate-y-1/4 opacity-10 pointer-events-none hidden md:block">
-                    <svg width="400" height="400" viewBox="0 0 24 24" fill="none" stroke="#111827" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                        <rect x="2" y="4" width="20" height="16" rx="2" />
-                        <path d="m2 4 10 8 10-8" />
-                    </svg>
+                    <p style={{color:'#475569',fontSize:'13px'}}>No spam. Unsubscribe anytime.</p>
                 </div>
             </div>
         </section>

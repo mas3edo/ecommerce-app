@@ -167,7 +167,7 @@ export default function AuthComponent() {
 
   return (
     <div className="min-h-screen bg-zinc-50 flex items-center justify-center p-4 sm:p-8">
-      <div className="w-full max-w-5xl bg-white rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row">
+      <div className="w-full max-w-5xl bg-white dark:bg-[#0B0F15] rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row">
         {/* Left Panel */}
         <div className="relative w-full md:w-1/2 h-64 md:h-auto hidden md:block">
           <div
@@ -179,7 +179,7 @@ export default function AuthComponent() {
           ></div>
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10"></div>
           <div className="absolute inset-0 flex flex-col justify-end p-10 md:p-14 mb-4">
-            <h2 className="text-3xl font-bold text-white mb-3">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-3">
               Elevate Your Tech.
             </h2>
             <p className="text-zinc-300 transform font-medium">
@@ -194,7 +194,7 @@ export default function AuthComponent() {
           {/* Message Alert */}
           <div className="min-h-[3rem] mb-4">
             {message.text && (
-              <div className={`p-3 rounded-xl flex items-center text-sm ${message.type === 'error' ? 'bg-red-50 text-red-600' : 'bg-green-50 text-green-600'}`}>
+              <div className={`p-3 rounded-xl flex items-center text-sm ${message.type === 'error' ? 'bg-red-500/10 text-red-600' : 'bg-green-50 text-green-600'}`}>
                 {message.type === 'error' ? (
                   <AlertCircle className="w-5 h-5 mr-2 shrink-0" />
                 ) : (
@@ -223,7 +223,7 @@ export default function AuthComponent() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Email address"
-                    className="w-full pl-10 pr-4 py-3 bg-white text-gray-900 border border-zinc-200 rounded-xl focus:ring-2 focus:ring-indigo-600 outline-none transition-all placeholder:text-zinc-400"
+                    className="w-full pl-10 pr-4 py-3 bg-white dark:bg-[#0B0F15] text-gray-900 dark:text-white border border-zinc-200 rounded-xl focus:ring-2 focus:ring-indigo-600 outline-none transition-all placeholder:text-zinc-400"
                   />
                 </div>
                 <div className="relative">
@@ -234,7 +234,7 @@ export default function AuthComponent() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Password"
-                    className="w-full pl-10 pr-10 py-3 bg-white text-gray-900 border border-zinc-200 rounded-xl focus:ring-2 focus:ring-indigo-600 outline-none transition-all placeholder:text-zinc-400"
+                    className="w-full pl-10 pr-10 py-3 bg-white dark:bg-[#0B0F15] text-gray-900 dark:text-white border border-zinc-200 rounded-xl focus:ring-2 focus:ring-indigo-600 outline-none transition-all placeholder:text-zinc-400"
                   />
                   <button
                     type="button"
@@ -247,7 +247,7 @@ export default function AuthComponent() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-black text-white py-3 rounded-xl font-medium hover:bg-zinc-800 transition-colors flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full bg-black text-gray-900 dark:text-white py-3 rounded-xl font-medium hover:bg-zinc-800 transition-colors flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {loading ? "Logging in..." : "Log In"}
                   {!loading && <ArrowRight className="ml-2 w-4 h-4" />}
@@ -259,7 +259,7 @@ export default function AuthComponent() {
                 <button
                   type="button"
                   onClick={() => toggleView("register")}
-                  className="text-indigo-600 font-semibold hover:text-indigo-700 transition-colors"
+                  className="text-emerald-400 font-semibold hover:text-indigo-700 transition-colors"
                 >
                   Sign up
                 </button>
@@ -269,7 +269,7 @@ export default function AuthComponent() {
 
             <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
               {error && (
-                <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded relative mb-4">
+                <div className="bg-red-500/10 border border-red-200 text-red-700 px-4 py-3 rounded relative mb-4">
                   {error}
                 </div>
               )}
@@ -294,7 +294,7 @@ export default function AuthComponent() {
                     value={fullName}
                     onChange={(e) => setFullName(e.target.value)}
                     placeholder="Full Name"
-                    className="w-full pl-10 pr-4 py-3 bg-white text-gray-900 border border-zinc-200 rounded-xl focus:ring-2 focus:ring-indigo-600 outline-none transition-all placeholder:text-zinc-400"
+                    className="w-full pl-10 pr-4 py-3 bg-white dark:bg-[#0B0F15] text-gray-900 dark:text-white border border-zinc-200 rounded-xl focus:ring-2 focus:ring-indigo-600 outline-none transition-all placeholder:text-zinc-400"
                   />
                 </div>
                 <div className="relative">
@@ -305,7 +305,7 @@ export default function AuthComponent() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Email Address"
-                    className="w-full pl-10 pr-4 py-3 bg-white text-gray-900 border border-zinc-200 rounded-xl focus:ring-2 focus:ring-indigo-600 outline-none transition-all placeholder:text-zinc-400"
+                    className="w-full pl-10 pr-4 py-3 bg-white dark:bg-[#0B0F15] text-gray-900 dark:text-white border border-zinc-200 rounded-xl focus:ring-2 focus:ring-indigo-600 outline-none transition-all placeholder:text-zinc-400"
                   />
                 </div>
                 <div className="relative">
@@ -316,7 +316,7 @@ export default function AuthComponent() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Password"
-                    className="w-full pl-10 pr-10 py-3 bg-white text-gray-900 border border-zinc-200 rounded-xl focus:ring-2 focus:ring-indigo-600 outline-none transition-all placeholder:text-zinc-400"
+                    className="w-full pl-10 pr-10 py-3 bg-white dark:bg-[#0B0F15] text-gray-900 dark:text-white border border-zinc-200 rounded-xl focus:ring-2 focus:ring-indigo-600 outline-none transition-all placeholder:text-zinc-400"
                   />
                   <button
                     type="button"
@@ -334,14 +334,14 @@ export default function AuthComponent() {
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     placeholder="Confirm Password"
-                    className="w-full pl-10 pr-10 py-3 bg-white text-gray-900 border border-zinc-200 rounded-xl focus:ring-2 focus:ring-indigo-600 outline-none transition-all placeholder:text-zinc-400"
+                    className="w-full pl-10 pr-10 py-3 bg-white dark:bg-[#0B0F15] text-gray-900 dark:text-white border border-zinc-200 rounded-xl focus:ring-2 focus:ring-indigo-600 outline-none transition-all placeholder:text-zinc-400"
                   />
                 </div>
 
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-black text-white py-3 mt-2 rounded-xl font-medium hover:bg-zinc-800 transition-colors flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full bg-black text-gray-900 dark:text-white py-3 mt-2 rounded-xl font-medium hover:bg-zinc-800 transition-colors flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {loading ? "Creating..." : "Create Account"}
                 </button>
@@ -352,7 +352,7 @@ export default function AuthComponent() {
                 <button
                   type="button"
                   onClick={() => toggleView("login")}
-                  className="text-indigo-600 font-semibold hover:text-indigo-700 transition-colors"
+                  className="text-emerald-400 font-semibold hover:text-indigo-700 transition-colors"
                 >
                   Log in
                 </button>
@@ -364,7 +364,7 @@ export default function AuthComponent() {
           <div className="mt-8">
             <div className="relative flex items-center justify-center">
               <span className="absolute w-full border-t border-zinc-200"></span>
-              <span className="relative bg-white px-4 text-sm text-zinc-500">
+              <span className="relative bg-white dark:bg-[#0B0F15] px-4 text-sm text-zinc-500">
                 Or continue with
               </span>
             </div>
@@ -373,7 +373,7 @@ export default function AuthComponent() {
               type="button"
               onClick={handleGoogleSignIn}
               disabled={loading}
-              className="mt-6 w-full flex items-center justify-center py-3 border border-zinc-200 rounded-xl bg-white hover:bg-zinc-50 transition-colors font-medium text-zinc-700 focus:ring-2 focus:ring-indigo-600 outline-none "
+              className="mt-6 w-full flex items-center justify-center py-3 border border-zinc-200 rounded-xl bg-white dark:bg-[#0B0F15] hover:bg-zinc-50 transition-colors font-medium text-zinc-700 focus:ring-2 focus:ring-indigo-600 outline-none "
             >
               <GoogleIcon />
               Sign in with Google

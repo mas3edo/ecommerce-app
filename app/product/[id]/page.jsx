@@ -35,11 +35,11 @@ export default async function ProductDetail({ params }) {
 
     if (error || !dbProduct) {
         return (
-            <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-6">
+            <div className="min-h-screen bg-white dark:bg-[#0f151c] flex flex-col items-center justify-center p-6">
                 <div className="text-center">
-                    <h1 className="text-3xl font-bold text-gray-900 mb-4">Product Not Found</h1>
-                    <p className="text-gray-500 mb-8">We couldn't find the product you're looking for. It may have been removed or the ID is invalid.</p>
-                    <Link href="/Home" className="px-6 py-3 bg-orange-500 text-white font-bold rounded-xl hover:bg-orange-600 transition-colors inline-flex items-center gap-2">
+                    <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">Product Not Found</h1>
+                    <p className="text-gray-500 dark:text-[#7C94B0] mb-8">We couldn't find the product you're looking for. It may have been removed or the ID is invalid.</p>
+                    <Link href="/Home" className="px-6 py-3 bg-emerald-500 text-gray-900 dark:text-white font-bold rounded-xl hover:bg-emerald-600 transition-colors inline-flex items-center gap-2">
                         <ArrowLeft size={18} /> Continue Shopping
                     </Link>
                 </div>
@@ -60,11 +60,11 @@ export default async function ProductDetail({ params }) {
     };
 
     return (
-        <div className="min-h-screen bg-white font-['public-sans',sans-serif]">
+        <div className="min-h-screen bg-white dark:bg-[#0B0F15] font-['public-sans',sans-serif]">
             {/* Breadcrumb / Back Navigation */}
-            <div className="bg-gray-50 border-b border-gray-100 py-4">
+            <div className="bg-white dark:bg-[#0f151c] border-b border-gray-200 dark:border-white/5 py-4">
                 <div className="max-w-7xl mx-auto px-6">
-                    <Link href="/Home" className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-orange-500 font-medium transition-colors border border-transparent hover:border-orange-200 px-3 py-1.5 rounded-lg -ml-3">
+                    <Link href="/Home" className="inline-flex items-center gap-2 text-sm text-gray-500 dark:text-[#7C94B0] hover:text-emerald-400 font-medium transition-colors border border-transparent hover:border-emerald-200 px-3 py-1.5 rounded-lg -ml-3">
                         <ArrowLeft size={16} />
                         Back to Shop
                     </Link>
@@ -76,9 +76,9 @@ export default async function ProductDetail({ params }) {
 
                     {/* Image Section */}
                     <div className="w-full md:w-1/2 lg:w-[500px] shrink-0  top-24">
-                        <div className="aspect-square bg-[#F8FAFC] rounded-3xl border border-gray-100 flex items-center justify-center p-8 relative overflow-hidden mix-blend-multiply shadow-sm">
+                        <div className="aspect-square bg-white dark:bg-[#0f151c] rounded-3xl border border-gray-200 dark:border-white/5 flex items-center justify-center p-8 relative overflow-hidden mix-blend-multiply shadow-sm">
                             {(product.isHotDeal || product.originalPrice) && (
-                                <div className="absolute top-6 left-6 z-10 bg-[#f97316] text-white text-xs font-bold px-3 py-1.5 rounded-md shadow-sm tracking-wide">
+                                <div className="absolute top-6 left-6 z-10 bg-[#f97316] text-gray-900 dark:text-white text-xs font-bold px-3 py-1.5 rounded-md shadow-sm tracking-wide">
                                     HOT DEAL
                                 </div>
                             )}
@@ -93,7 +93,7 @@ export default async function ProductDetail({ params }) {
                     {/* Content Section */}
                     <div className="flex-1 w-full pt-4 md:pt-0">
                         {product.brand && (
-                            <div className="text-orange-500 font-bold text-sm tracking-wider uppercase mb-3 px-2 py-0.5 bg-orange-50 inline-block rounded-md">
+                            <div className="text-emerald-400 font-bold text-sm tracking-wider uppercase mb-3 px-2 py-0.5 bg-emerald-50 inline-block rounded-md">
                                 {product.brand}
                             </div>
                         )}
@@ -111,7 +111,7 @@ export default async function ProductDetail({ params }) {
                         </div>
 
                         <div className="mb-8 flex items-end gap-3">
-                            <span className="text-4xl font-black text-[#ea580c] font-['inter',sans-serif]">
+                            <span className="text-4xl font-black text-[#10B981] font-['inter',sans-serif]">
                                 ${Number(product.price).toFixed(2)}
                             </span>
                             {product.originalPrice && (
@@ -127,46 +127,46 @@ export default async function ProductDetail({ params }) {
 
                         {/* Specs (if available) */}
                         {(product.ram || product.storage || product.color) && (
-                            <div className="mb-8 p-5 bg-[#F8FAFC] rounded-2xl border border-gray-100 grid grid-cols-2 gap-4">
+                            <div className="mb-8 p-5 bg-white dark:bg-[#0f151c] rounded-2xl border border-gray-200 dark:border-white/5 grid grid-cols-2 gap-4">
                                 {product.ram && (
                                     <div>
                                         <div className="text-xs text-slate-500 font-medium mb-1">RAM Memory</div>
-                                        <div className="text-sm font-bold text-slate-900">{product.ram} GB</div>
+                                        <div className="text-sm font-bold text-gray-900 dark:text-white">{product.ram} GB</div>
                                     </div>
                                 )}
                                 {product.storage && (
                                     <div>
                                         <div className="text-xs text-slate-500 font-medium mb-1">Internal Storage</div>
-                                        <div className="text-sm font-bold text-slate-900">{product.storage} GB</div>
+                                        <div className="text-sm font-bold text-gray-900 dark:text-white">{product.storage} GB</div>
                                     </div>
                                 )}
                             </div>
                         )}
 
                         {/* Actions (Client Component) */}
-                        <div className="pt-2 border-t border-gray-100">
+                        <div className="pt-2 border-t border-gray-200 dark:border-white/5">
                             <ProductActions product={product} />
                         </div>
 
                         {/* Trust Badges */}
-                        <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6 pt-8 border-t border-gray-100">
+                        <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6 pt-8 border-t border-gray-200 dark:border-white/5">
                             <div className="flex items-center gap-3">
                                 <div className="w-12 h-12 bg-blue-50 text-blue-500 rounded-full flex items-center justify-center shrink-0">
                                     <Truck size={20} />
                                 </div>
-                                <span className="text-sm font-semibold text-gray-700 leading-tight">Free USA<br />Shipping</span>
+                                <span className="text-sm font-semibold text-gray-700 dark:text-[#DFE6EE] leading-tight">Free USA<br />Shipping</span>
                             </div>
                             <div className="flex items-center gap-3">
                                 <div className="w-12 h-12 bg-green-50 text-green-500 rounded-full flex items-center justify-center shrink-0">
                                     <ShieldCheck size={20} />
                                 </div>
-                                <span className="text-sm font-semibold text-gray-700 leading-tight">1 Year<br />Warranty</span>
+                                <span className="text-sm font-semibold text-gray-700 dark:text-[#DFE6EE] leading-tight">1 Year<br />Warranty</span>
                             </div>
                             <div className="flex items-center gap-3">
                                 <div className="w-12 h-12 bg-purple-50 text-purple-500 rounded-full flex items-center justify-center shrink-0">
                                     <RefreshCw size={20} />
                                 </div>
-                                <span className="text-sm font-semibold text-gray-700 leading-tight">30-Day<br />Returns</span>
+                                <span className="text-sm font-semibold text-gray-700 dark:text-[#DFE6EE] leading-tight">30-Day<br />Returns</span>
                             </div>
                         </div>
 

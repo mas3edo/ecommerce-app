@@ -5,6 +5,9 @@ import { useRouter, usePathname } from "next/navigation";
 import { supabase } from "../lib/data";
 import LoadingAnimation from "./LoadingAnimation";
 
+// Public-only route (login/register page)
+const PUBLIC_ONLY = ["/"];
+
 export default function RouteGuard({ children }) {
     const router = useRouter();
     const pathname = usePathname();
@@ -14,16 +17,16 @@ export default function RouteGuard({ children }) {
         const checkSession = async () => {
             const { data: { session } } = await supabase.auth.getSession();
             if (!session) {
-                // No token → send back to login
+                // No session → send to login unless already on login page
                 if (pathname !== "/") {
                     router.replace("/");
                 } else {
                     setChecking(false);
                 }
             } else {
-                // Has token
+                // Has session — allow /setup-admin without redirect
                 if (pathname === "/") {
-                    router.replace("/Home"); // Redirect to home if logged in but on login page
+                    router.replace("/Home");
                 } else {
                     setChecking(false);
                 }
@@ -32,7 +35,7 @@ export default function RouteGuard({ children }) {
 
         checkSession();
 
-        // Also listen for auth changes
+        // Listen for auth changes
         const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
             if (!session) {
                 if (pathname !== "/") {

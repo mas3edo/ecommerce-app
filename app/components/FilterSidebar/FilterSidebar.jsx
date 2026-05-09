@@ -45,7 +45,7 @@ export default function FilterSidebar({
 
             {/* Sidebar Content */}
             <aside className={`
-                fixed top-0 left-0 h-full w-[320px] bg-white z-[70] p-8 overflow-y-auto transition-transform duration-300 ease-out lg:hidden
+                fixed top-0 left-0 h-full w-[320px] bg-white dark:bg-[#0B0F15] z-[70] p-8 overflow-y-auto transition-transform duration-300 ease-out lg:hidden
                 ${isOpen ? 'translate-x-0 shadow-2xl' : '-translate-x-full'}
             `}>
                 <div className="flex items-center justify-between mb-8">
@@ -77,7 +77,7 @@ export default function FilterSidebar({
                 <div className="mt-10">
                     <button 
                         onClick={onClose}
-                        className="w-full py-4 bg-[#0F172A] text-white font-bold rounded-2xl shadow-xl hover:bg-slate-800 transition-all uppercase tracking-widest"
+                        className="w-full py-4 bg-[#0F172A] text-gray-900 dark:text-white font-bold rounded-2xl shadow-xl hover:bg-slate-800 transition-all uppercase tracking-widest"
                     >
                         Show Results
                     </button>
@@ -90,7 +90,7 @@ export default function FilterSidebar({
                     <h3 className="text-xl font-black text-[#0F172A] uppercase tracking-tight">Filters</h3>
                     <button 
                         onClick={resetFilters}
-                        className="text-xs font-bold text-orange-600 hover:text-orange-700 transition-colors uppercase tracking-widest"
+                        className="text-xs font-bold text-emerald-600 hover:text-emerald-700 transition-colors uppercase tracking-widest"
                     >
                         Reset All
                     </button>
@@ -143,9 +143,9 @@ function FilterContent({
                     <div className="flex flex-col gap-3.5">
                         {availableBrands.map((brand) => (
                             <label key={brand} className="flex items-center gap-3.5 cursor-pointer group">
-                                <div className={`w-5 h-5 rounded-[6px] border-2 flex items-center justify-center transition-all ${selectedBrands.includes(brand) ? 'bg-[#ea580c] border-[#ea580c] shadow-lg shadow-orange-500/20' : 'bg-white border-gray-200 group-hover:border-[#ea580c]'}`}>
+                                <div className={`w-5 h-5 rounded-[6px] border-2 flex items-center justify-center transition-all ${selectedBrands.includes(brand) ? 'bg-[#10B981] border-[#10B981] shadow-lg shadow-emerald-500/20' : 'bg-white dark:bg-[#0B0F15] border-gray-200 dark:border-white/10 group-hover:border-[#10B981]'}`}>
                                     {selectedBrands.includes(brand) && (
-                                        <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={4}>
+                                        <svg className="w-3 h-3 text-gray-900 dark:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={4}>
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                                         </svg>
                                     )}
@@ -168,15 +168,15 @@ function FilterContent({
                         max={maxPossiblePrice} 
                         value={priceRange} 
                         onChange={(e) => setPriceRange(Number(e.target.value))}
-                        className="w-full h-1.5 bg-gray-200 rounded-full appearance-none cursor-pointer accent-[#ea580c]"
+                        className="w-full h-1.5 bg-gray-200 rounded-full appearance-none cursor-pointer accent-[#10B981]"
                     />
                 </div>
                 <div className="flex items-center h-12 gap-3">
-                    <div className="flex-1 h-full border-2 border-slate-100 rounded-xl flex items-center justify-center bg-slate-50/50">
+                    <div className="flex-1 h-full border-2 border-gray-200 rounded-xl flex items-center justify-center bg-slate-50/50">
                         <span className="text-sm font-black text-[#0F172A]">$0</span>
                     </div>
-                    <div className="flex-1 h-full border-2 border-orange-100 rounded-xl flex items-center justify-center bg-orange-50/30">
-                        <span className="text-sm font-black text-orange-600">${priceRange}</span>
+                    <div className="flex-1 h-full border-2 border-emerald-100 rounded-xl flex items-center justify-center bg-emerald-50/30">
+                        <span className="text-sm font-black text-emerald-600">${priceRange}</span>
                     </div>
                 </div>
             </div>
@@ -192,8 +192,8 @@ function FilterContent({
                                 onClick={(e) => { e.preventDefault(); setSelectedRam(prev => prev === ram ? null : ram); }}
                                 className={`px-4 py-2.5 text-xs font-black rounded-xl border-2 transition-all uppercase ${
                                     selectedRam === ram 
-                                    ? 'border-orange-500 text-orange-600 bg-orange-50 shadow-sm' 
-                                    : 'border-slate-100 text-slate-400 bg-white hover:border-slate-300'
+                                    ? 'border-emerald-400 text-emerald-600 bg-emerald-50 shadow-sm' 
+                                    : 'border-gray-200 text-slate-400 bg-white dark:bg-[#0B0F15] hover:border-slate-300'
                                 }`}
                             >
                                 {ram}
@@ -214,12 +214,12 @@ function FilterContent({
                                     <input 
                                         type="radio" 
                                         name="storage" 
-                                        className="peer appearance-none w-5 h-5 border-2 border-gray-200 rounded-full checked:border-[#ea580c] transition-all cursor-pointer bg-white group-hover:border-[#ea580c]"
+                                        className="peer appearance-none w-5 h-5 border-2 border-gray-200 dark:border-white/10 rounded-full checked:border-[#10B981] transition-all cursor-pointer bg-white dark:bg-[#0B0F15] group-hover:border-[#10B981]"
                                         checked={selectedStorage === storage}
                                         onChange={() => setSelectedStorage(prev => prev === storage ? null : storage)}
                                         onClick={() => { if(selectedStorage === storage) setSelectedStorage(null) }}
                                     />
-                                    <div className="absolute w-2 h-2 bg-[#ea580c] rounded-full scale-0 peer-checked:scale-100 transition-transform duration-200 pointer-events-none"></div>
+                                    <div className="absolute w-2 h-2 bg-[#10B981] rounded-full scale-0 peer-checked:scale-100 transition-transform duration-200 pointer-events-none"></div>
                                 </div>
                                 <span className={`text-[15px] font-bold transition-colors ${selectedStorage === storage ? 'text-[#0F172A]' : 'text-slate-500 group-hover:text-[#0F172A]'}`}>{storage}</span>
                             </label>

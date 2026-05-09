@@ -50,13 +50,15 @@ export default function TrendingGrid({ displayProducts }) {
             <div className="absolute -top-16 right-0 flex gap-2 z-20">
                 <button
                     onClick={() => scroll('left')}
-                    className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-gray-600 bg-white hover:border-orange-500 hover:text-orange-500 hover:shadow-md transition-all active:scale-95"
+                    className="w-10 h-10 rounded-full flex items-center justify-center text-gray-600 dark:text-[#AABDD1] bg-white dark:bg-[#0B0F15] hover:border-[rgba(139,92,246,0.6)] hover:text-[#8B5CF6] hover:shadow-md transition-all active:scale-95"
+                    style={{border:'1px solid rgba(139,92,246,0.2)'}}
                 >
                     <ChevronLeft size={20} />
                 </button>
                 <button
                     onClick={() => scroll('right')}
-                    className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-gray-600 bg-white hover:border-orange-500 hover:text-orange-500 hover:shadow-md transition-all active:scale-95"
+                    className="w-10 h-10 rounded-full flex items-center justify-center text-gray-600 dark:text-[#AABDD1] bg-white dark:bg-[#0B0F15] hover:border-[rgba(139,92,246,0.6)] hover:text-[#8B5CF6] hover:shadow-md transition-all active:scale-95"
+                    style={{border:'1px solid rgba(139,92,246,0.2)'}}
                 >
                     <ChevronRight size={20} />
                 </button>
@@ -74,13 +76,17 @@ export default function TrendingGrid({ displayProducts }) {
                         <Link
                             href={`/product/${product.id}`}
                             key={product.id}
-                            className="group flex flex-col bg-white rounded-2xl border border-gray-100 p-4 transition-all duration-300 hover:shadow-[0_12px_32px_rgba(0,0,0,0.06)] hover:-translate-y-1 hover:border-orange-100 relative cursor-pointer block flex-shrink-0 w-[280px] sm:w-[310px] snap-start"
+                            className="group flex flex-col rounded-2xl p-4 transition-all duration-300 hover:-translate-y-1 relative cursor-pointer block flex-shrink-0 w-[280px] sm:w-[310px] snap-start"
+                            style={{background:'linear-gradient(135deg,rgba(139,92,246,0.07),rgba(6,182,212,0.03))',border:'1px solid rgba(139,92,246,0.15)',boxShadow:'0 4px 24px rgba(0,0,0,0.4)'}}
+                            onMouseEnter={e=>{e.currentTarget.style.borderColor='rgba(139,92,246,0.45)';e.currentTarget.style.boxShadow='0 0 0 1px rgba(139,92,246,0.2),0 20px 60px rgba(0,0,0,0.6),0 0 30px rgba(139,92,246,0.12)'}}
+                            onMouseLeave={e=>{e.currentTarget.style.borderColor='rgba(139,92,246,0.15)';e.currentTarget.style.boxShadow='0 4px 24px rgba(0,0,0,0.4)'}}
                         >
                             {/* Image Container */}
-                            <div className="relative w-full aspect-square bg-[#F8FAFC] rounded-xl mb-5 overflow-hidden flex items-center justify-center mix-blend-multiply">
+                            <div className="relative w-full aspect-square rounded-xl mb-5 overflow-hidden flex items-center justify-center" style={{background:'rgba(255,255,255,0.04)',border:'1px solid rgba(255,255,255,0.06)'}}>
                                 {/* Hot Deal Badge */}
                                 {(product.isHotDeal || product.originalPrice) && (
-                                    <div className="absolute top-3 left-3 z-10 bg-[#f97316] text-white text-[10px] font-bold px-2 py-1 rounded shadow-sm tracking-wide">
+                                    <div className="absolute top-3 left-3 z-10 text-gray-900 dark:text-white text-[10px] font-bold px-2 py-1 rounded-full tracking-wider"
+                                        style={{background:'linear-gradient(135deg,#8B5CF6,#6366F1)',boxShadow:'0 0 12px rgba(139,92,246,0.5)'}}>
                                         HOT DEAL
                                     </div>
                                 )}
@@ -88,7 +94,7 @@ export default function TrendingGrid({ displayProducts }) {
                                 {/* Favorite Button */}
                                 <button
                                     onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleFavorite(product); }}
-                                    className={`absolute top-3 right-3 z-10 w-8 h-8 rounded-full shadow-sm flex items-center justify-center transition-all  cursor-pointer ${isFavorite ? 'bg-red-50 text-red-500' : 'bg-white/90 backdrop-blur-sm text-gray-400 hover:text-red-500 hover:bg-white'}`}
+                                    className={`absolute top-3 right-3 z-10 w-8 h-8 rounded-full shadow-sm flex items-center justify-center transition-all  cursor-pointer ${isFavorite ? 'bg-red-500/10 text-red-500' : 'bg-white dark:bg-[#0B0F15]/90 backdrop-blur-sm text-gray-500 dark:text-[#7C94B0] hover:text-red-500 hover:bg-white dark:bg-[#0B0F15]'}`}
                                 >
                                     <Heart size={16} strokeWidth={2} fill={isFavorite ? "currentColor" : "none"} />
                                 </button>
@@ -97,7 +103,7 @@ export default function TrendingGrid({ displayProducts }) {
                                 <img
                                     src={product.image}
                                     alt={product.title}
-                                    className="w-[85%] h-[85%] object-contain mix-blend-darken transition-transform duration-500 group-hover:scale-105"
+                                    className="w-[85%] h-[85%] object-contain transition-transform duration-500 group-hover:scale-105"
                                 />
                             </div>
 
@@ -105,7 +111,8 @@ export default function TrendingGrid({ displayProducts }) {
                             <div className="flex flex-col flex-grow">
                                 <StarRating rating={product.rating} count={product.reviews} />
 
-                                <h3 className="text-[#0F172A] font-bold text-[17px] mb-1.5 leading-tight truncate">
+                                <h3 className="font-bold text-[17px] mb-1.5 leading-tight truncate"
+                                    style={{color:'#F1F5F9',fontFamily:"'Space Grotesk',sans-serif"}}>
                                     {product.title}
                                 </h3>
 
@@ -117,7 +124,7 @@ export default function TrendingGrid({ displayProducts }) {
                                 <div className="flex items-center justify-between mt-auto">
                                     <div className="flex flex-col">
                                         <div className="flex items-baseline gap-2">
-                                            <span className="text-xl font-extrabold text-[#ea580c]">
+                                            <span className="text-xl font-extrabold" style={{color:'#A78BFA'}}>
                                                 ${Number(product.price).toFixed(2)}
                                             </span>
                                         </div>
@@ -130,7 +137,8 @@ export default function TrendingGrid({ displayProducts }) {
 
                                     <button
                                         onClick={(e) => { e.preventDefault(); e.stopPropagation(); addToCart(product); }}
-                                        className={`w-10 h-10 rounded-xl flex items-center justify-center shadow-md transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 relative overflow-hidden group/btn ${inCart ? 'bg-[#ea580c] text-white hover:bg-[#c2410c] hover:shadow-orange-500/30' : 'bg-[#0f172a] text-white hover:bg-[#1e293b] hover:shadow-lg'}`}
+                                        className={`w-10 h-10 rounded-xl flex items-center justify-center shadow-md transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 relative overflow-hidden group/btn`}
+                                        style={{background: inCart ? 'linear-gradient(135deg,#8B5CF6,#6366F1)' : 'linear-gradient(135deg,rgba(139,92,246,0.2),rgba(6,182,212,0.1))',border:'1px solid rgba(139,92,246,0.4)',color: inCart ? 'white' : '#A78BFA',boxShadow: inCart ? '0 0 16px rgba(139,92,246,0.5)' : 'none'}}
                                     >
                                         <ShoppingCart size={18} className="relative z-10 transition-transform duration-300 group-hover/btn:scale-110" />
                                     </button>

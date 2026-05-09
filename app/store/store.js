@@ -8,13 +8,14 @@ export const useStore = create(
         (set) => ({
             cart: [],
             favorites: [],
+            orders: [],
 
             // --- Cart Actions ---
             addToCart: (product) => set((state) => {
                 const existingProduct = state.cart.find((item) => item.id === product.id);
                 toast.success(`${product.title} added to cart!`, {
                     icon: '🛒',
-                    progressStyle: { background: '#22c55e' }
+                    progressStyle: { background: '#22c55e'  }
                 });
                 if (existingProduct) {
                     return {
@@ -58,6 +59,12 @@ export const useStore = create(
                 return { favorites: [...state.favorites, product] };
             }),
             clearFavorites: () => set({ favorites: [] }),
+
+            // --- Orders Actions ---
+            addOrder: (order) => set((state) => ({
+                orders: [order, ...state.orders],
+            })),
+            clearOrders: () => set({ orders: [] }),
         }),
         {
             name: 'techflow-storage', // name of the item in the local storage
