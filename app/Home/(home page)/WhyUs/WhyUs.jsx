@@ -75,8 +75,8 @@ export default function WhyUs() {
                                     {item.icon}
                                 </div>
                                 <div>
-                                    <p className="font-bold text-sm" style={{color:'#F1F5F9',fontFamily:"'Space Grotesk',sans-serif"}}>{item.title}</p>
-                                    <p className="text-xs mt-1 leading-relaxed" style={{color:'#94A3B8'}}>{item.desc}</p>
+                                    <p className="font-bold text-sm dark:text-white text-gray-900" style={{fontFamily:"'Space Grotesk',sans-serif"}}>{item.title}</p>
+                                    <p className="text-xs mt-1 leading-relaxed dark:text-gray-400 text-gray-600">{item.desc}</p>
                                 </div>
                             </div>
                         ))}
@@ -87,10 +87,10 @@ export default function WhyUs() {
             {/* ── FEATURED BRANDS ── */}
             <section className="max-w-7xl mx-auto px-4 sm:px-6 py-14">
                 <div className="text-center mb-10">
-                    <h2 style={{fontFamily:"'Space Grotesk',sans-serif",fontSize:'1.875rem',fontWeight:700,color:'#F1F5F9',letterSpacing:'-0.03em',margin:'0 0 6px'}}>
+                    <h2 style={{fontFamily:"'Space Grotesk',sans-serif",fontSize:'1.875rem',fontWeight:700,letterSpacing:'-0.03em',margin:'0 0 6px'}} className="text-gray-900 dark:text-white">
                         Top Brands We Carry
                     </h2>
-                    <p style={{color:'#64748B',fontSize:'0.9375rem',margin:0}}>Authorized dealer of the world's leading tech brands.</p>
+                    <p className="text-gray-600 dark:text-gray-400" style={{fontSize:'0.9375rem',margin:0}}>Authorized dealer of the world's leading tech brands.</p>
                 </div>
                 <div className="grid grid-cols-3 md:grid-cols-6 gap-4">
                     {BRANDS.map((brand) => (
@@ -106,7 +106,7 @@ export default function WhyUs() {
                             >
                                 {brand.letter}
                             </div>
-                            <span className="text-sm font-bold transition-colors" style={{color:'#E2E8F0',fontFamily:"'Space Grotesk',sans-serif"}}>{brand.name}</span>
+                            <span className="text-sm font-bold transition-colors dark:text-gray-200 text-gray-700" style={{fontFamily:"'Space Grotesk',sans-serif"}}>{brand.name}</span>
                         </Link>
                     ))}
                 </div>
