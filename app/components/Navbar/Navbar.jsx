@@ -128,7 +128,7 @@ export default function Navbar() {
                         <Zap size={20} strokeWidth={2.5} />
                     </div>
                     <span className="text-lg font-bold text-gray-900 dark:text-white tracking-[-0.5px]">
-                        TECH<span className="gradient-brand-text">FLOW</span>
+                        TECH<span className="brand-text">FLOW</span>
                     </span>
                 </Link>
 
