@@ -1,8 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
-@import "tailwindcss";
 
-/* Enable class-based dark mode in Tailwind v4 */
-@custom-variant dark (&:is(.dark *));
+@import "tailwindcss";
 
 /* ══════════════════════════════════════════════════════════
    TECHFLOW — MIDNIGHT AURORA  |  Obsidian + Emerald/Cyan
@@ -12,6 +10,7 @@
   /* Accents */
   --color-tf-cyan: #06B6D4;
   --color-tf-bg:   #040608;
+  --color-tf-emerald: #10B981;
 }
 
 /* ══ Root vars ══════════════════════════════════════════ */
