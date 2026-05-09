@@ -33,9 +33,15 @@ export default function Navbar() {
     const userDropdownRef = useRef(null);
 
     // Theme state
-    const { theme, setTheme } = useTheme();
+    const { theme, setTheme, resolvedTheme } = useTheme();
     const [mounted, setMounted] = useState(false);
+    
     useEffect(() => setMounted(true), []);
+    
+    const toggleTheme = () => {
+      const newTheme = theme === 'dark' || resolvedTheme === 'dark' ? 'light' : 'dark';
+      setTheme(newTheme);
+    };
 
     // Fetch current user for avatar/initials
     useEffect(() => {
@@ -213,12 +219,12 @@ export default function Navbar() {
                 <div className="flex items-center gap-1 ml-auto">
                     {/* Theme Toggle */}
                     <button
-                        onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                        onClick={toggleTheme}
                         className="relative w-10 h-10 rounded-xl flex items-center justify-center text-gray-500 dark:text-[#7C94B0] transition-colors duration-150 hover:bg-gray-100 dark:hover:bg-emerald-500/10 hover:text-emerald-500 dark:hover:text-emerald-400"
                         aria-label="Toggle Theme"
-                        disabled={!mounted}
+                        title={mounted ? `Switch to ${resolvedTheme === 'dark' ? 'light' : 'dark'} mode` : "Theme"}
                     >
-                        {mounted ? (theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />) : <Moon size={20} />}
+                        {mounted && (resolvedTheme === 'dark' ? <Sun size={20} /> : <Moon size={20} />)}
                     </button>
 
                     {/* Favorites */}
