@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { ShoppingCart, User, Search, Zap, ChevronDown, LogOut, Heart, LayoutDashboard, Sun, Moon } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import { supabase } from "../../lib/data";
 import { useStore } from "../../store/store";
@@ -19,6 +19,7 @@ const categories = [
 
 export default function Navbar() {
     const router = useRouter();
+    const pathname = usePathname();
     const cart = useStore((state) => state.cart || []);
     const favorites = useStore((state) => state.favorites || []);
 
@@ -73,6 +74,7 @@ export default function Navbar() {
     const [isSearching, setIsSearching] = useState(false);
     const searchRef = useRef(null);
     const mobileSearchRef = useRef(null);
+    const mobileMenuRef = useRef(null);
 
     // Close search dropdown when clicking outside
     useEffect(() => {
@@ -81,12 +83,21 @@ export default function Navbar() {
                 setSearchResults([]); // close desktop dropdown
             }
             if (mobileSearchRef.current && !mobileSearchRef.current.contains(event.target)) {
-                // optionally handle mobile outside click
+                // close mobile dropdown if user taps elsewhere inside menu
+                setSearchResults([]);
             }
         };
         document.addEventListener("mousedown", handleClickOutside);
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
+
+    // Close mobile menu on route change (works even if a Link click doesn't fire)
+    useEffect(() => {
+        setMobileOpen(false);
+        setDropdownOpen(false);
+        setUserDropdownOpen(false);
+        setSearchResults([]);
+    }, [pathname]);
 
     // Debounced Supabase Live Search
     useEffect(() => {
@@ -122,10 +133,25 @@ export default function Navbar() {
         // No redirect needed since we click results from dropdown
     };
 
+    const handleMobileResultSelect = (productId) => {
+        router.push(`/product/${productId}`);
+        setSearchValue("");
+        setSearchResults([]);
+        setMobileOpen(false);
+    };
+
     return (
         <nav className="sticky top-0 z-[100] bg-white dark:bg-[#040608]/95 backdrop-blur-xl border-b border-[rgba(139,92,246,0.15)] shadow-[0_2px_30px_rgba(0,0,0,0.6)] font-['Plus_Jakarta_Sans',sans-serif]">
+            {/* Backdrop to close mobile menu when tapping outside */}
+            {mobileOpen && (
+                <div
+                    className="md:hidden fixed inset-0 z-[90] bg-black/20 dark:bg-black/40"
+                    onClick={() => { setMobileOpen(false); setSearchResults([]); }}
+                    aria-hidden="true"
+                />
+            )}
             {/* ─── Main Bar ─── */}
-            <div className="max-w-7xl mx-auto px-6 h-16 flex items-center gap-7">
+            <div className="max-w-7xl mx-auto px-6 h-16 flex items-center gap-4">
 
                 {/* Logo */}
                 <Link href="/Home" className="flex items-center gap-2 shrink-0 no-underline">
@@ -166,7 +192,7 @@ export default function Navbar() {
                 </div>
 
                 {/* Search Bar (Desktop) */}
-                <div ref={searchRef} className="hidden md:flex flex-1 max-w-[320px] relative items-center">
+                <div ref={searchRef} className="hidden md:flex flex-1 md:max-w-[340px] lg:max-w-[420px] relative items-center">
                     <form onSubmit={handleSearch} className="w-full relative">
                         <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-[#7C94B0] pointer-events-none" />
                         <input
@@ -308,7 +334,10 @@ export default function Navbar() {
 
             {/* ─── Mobile Menu ─── */}
             {mobileOpen && (
-                <div className="md:hidden bg-white dark:bg-[#040608]/98 border-t border-[rgba(139,92,246,0.15)] px-5 pt-3 pb-5 flex flex-col gap-0.5 animate-[fadeDown_0.2s_ease-out]">
+                <div
+                    ref={mobileMenuRef}
+                    className="md:hidden relative z-[100] bg-white dark:bg-[#040608]/98 border-t border-[rgba(139,92,246,0.15)] px-5 pt-3 pb-5 flex flex-col gap-0.5 animate-[fadeDown_0.2s_ease-out] max-h-[calc(100vh-64px)] overflow-y-auto overscroll-contain"
+                >
                     <div ref={mobileSearchRef} className="relative mb-2.5">
                         <form onSubmit={handleSearch} className="w-full relative">
                             <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-[#7C94B0] pointer-events-none" />
@@ -323,20 +352,37 @@ export default function Navbar() {
 
                         {/* Mobile Search Dropdown */}
                         {(searchResults.length > 0 || isSearching) && searchValue.trim() && (
-                            <div className="absolute top-[calc(100%+8px)] left-0 w-full bg-white dark:bg-[#0B0F15] border border-gray-200 dark:border-white/10 rounded-xl shadow-lg overflow-hidden z-[110] animate-[fadeDown_0.15s_ease-out]">
+                            <div className="absolute top-[calc(100%+8px)] left-0 w-full bg-white dark:bg-[#0B0F15] border border-gray-200 dark:border-white/10 rounded-xl shadow-lg overflow-hidden z-[200] animate-[fadeDown_0.15s_ease-out]">
                                 {isSearching ? (
                                     <div className="p-4 text-center text-sm text-gray-500 dark:text-[#7C94B0] flex items-center justify-center gap-2">
                                         <div className="w-4 h-4 border-2 border-emerald-400 border-t-transparent rounded-full animate-spin"></div>
                                         Searching...
                                     </div>
                                 ) : searchResults.length > 0 ? (
-                                    <div className="max-h-[250px] overflow-y-auto">
+                                    <div className="max-h-[250px] overflow-y-auto overscroll-contain" style={{ WebkitOverflowScrolling: 'touch' }}>
                                         {searchResults.map(p => (
-                                            <Link
+                                            <button
                                                 key={p.id}
-                                                href={`/product/${p.id}`}
-                                                onClick={() => { setSearchValue(""); setSearchResults([]); setMobileOpen(false); }}
-                                                className="flex items-center gap-3 p-3 hover:bg-emerald-500/10 border-b border-white/5 last:border-0 transition-colors group"
+                                                type="button"
+                                                onPointerDown={(e) => {
+                                                    e.preventDefault();
+                                                    e.stopPropagation();
+                                                    handleMobileResultSelect(p.id);
+                                                }}
+                                                onMouseDown={(e) => {
+                                                    e.preventDefault();
+                                                    e.stopPropagation();
+                                                    handleMobileResultSelect(p.id);
+                                                }}
+                                                onTouchStart={(e) => {
+                                                    e.preventDefault();
+                                                    e.stopPropagation();
+                                                    handleMobileResultSelect(p.id);
+                                                }}
+                                                onClick={(e) => {
+                                                    e.preventDefault();
+                                                }}
+                                                className="w-full text-left flex items-center gap-3 p-3 hover:bg-emerald-500/10 border-b border-white/5 last:border-0 transition-colors group"
                                             >
                                                 <div className="w-10 h-10 bg-white dark:bg-[#0f151c] rounded flex items-center justify-center shrink-0">
                                                     <img src={p.image || p.image_url} alt={p.title || p.name} className="max-w-full max-h-full object-contain mix-blend-darken" />
@@ -345,7 +391,7 @@ export default function Navbar() {
                                                     <div className="text-sm font-bold text-gray-900 dark:text-white truncate">{p.title || p.name}</div>
                                                     <div className="text-xs text-emerald-400 font-extrabold mt-0.5">${p.price}</div>
                                                 </div>
-                                            </Link>
+                                            </button>
                                         ))}
                                     </div>
                                 ) : null}
@@ -356,20 +402,14 @@ export default function Navbar() {
                         )}
                     </div>
 
-                    <Link href="/Home/deals" className="block px-3 py-2.5 text-[15px] font-medium text-gray-900 dark:text-white rounded-lg transition-colors hover:bg-emerald-500/10 hover:text-emerald-400" onClick={() => setMobileOpen(false)}>Deals</Link>
-                    <Link href="/Home/new-arrivals" className="block px-3 py-2.5 text-[15px] font-medium text-gray-900 dark:text-white rounded-lg transition-colors hover:bg-emerald-500/10 hover:text-emerald-400" onClick={() => setMobileOpen(false)}>New Arrivals</Link>
-                    <Link href="/Home/support" className="block px-3 py-2.5 text-[15px] font-medium text-gray-900 dark:text-white rounded-lg transition-colors hover:bg-emerald-500/10 hover:text-emerald-400" onClick={() => setMobileOpen(false)}>Support</Link>
-                    <div className="h-px bg-white dark:bg-[#0B0F15]/5 my-2" />
-                    {categories.map((cat) => (
-                        <Link key={cat} href={`/Home/category/${cat.toLowerCase()}`} className="block px-3 pl-5 py-2.5 text-[14px] font-normal text-gray-500 dark:text-[#7C94B0] rounded-lg transition-colors hover:bg-emerald-500/10 hover:text-emerald-400" onClick={() => setMobileOpen(false)}>
-                            {cat}
-                        </Link>
-                    ))}
-                    <Link href="/profile" className="block px-3 py-2.5 text-[15px] font-medium text-gray-900 dark:text-white rounded-lg transition-colors hover:bg-emerald-500/10 hover:text-emerald-400" onClick={() => setMobileOpen(false)}>
+                    <Link href="/Home/deals" className="block px-3 py-2.5 text-[15px] font-medium text-gray-900 dark:text-white rounded-lg transition-colors hover:bg-emerald-500/10 hover:text-emerald-400">Deals</Link>
+                    <Link href="/Home/new-arrivals" className="block px-3 py-2.5 text-[15px] font-medium text-gray-900 dark:text-white rounded-lg transition-colors hover:bg-emerald-500/10 hover:text-emerald-400">New Arrivals</Link>
+                    <Link href="/Home/support" className="block px-3 py-2.5 text-[15px] font-medium text-gray-900 dark:text-white rounded-lg transition-colors hover:bg-emerald-500/10 hover:text-emerald-400">Support</Link>
+                    <Link href="/profile" className="block px-3 py-2.5 text-[15px] font-medium text-gray-900 dark:text-white rounded-lg transition-colors hover:bg-emerald-500/10 hover:text-emerald-400">
                         👤 My Profile
                     </Link>
                     {isAdmin && (
-                        <Link href="/admin" className="block px-3 py-2.5 text-[15px] font-semibold text-emerald-400 rounded-lg transition-colors hover:bg-emerald-500/10" onClick={() => setMobileOpen(false)}>
+                        <Link href="/admin" className="block px-3 py-2.5 text-[15px] font-semibold text-emerald-400 rounded-lg transition-colors hover:bg-emerald-500/10">
                             ⚙️ Admin Dashboard
                         </Link>
                     )}
