@@ -32,15 +32,14 @@ export default function Navbar() {
     const [authUser, setAuthUser] = useState(null);
     const userDropdownRef = useRef(null);
 
-    // Theme state
-    const { theme, setTheme, resolvedTheme } = useTheme();
+        // Theme state
+        const { setTheme, resolvedTheme } = useTheme();
     const [mounted, setMounted] = useState(false);
     
     useEffect(() => setMounted(true), []);
     
     const toggleTheme = () => {
-      const newTheme = theme === 'dark' || resolvedTheme === 'dark' ? 'light' : 'dark';
-      setTheme(newTheme);
+            setTheme(resolvedTheme === 'dark' ? 'light' : 'dark');
     };
 
     // Fetch current user for avatar/initials
